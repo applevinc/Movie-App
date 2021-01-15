@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/ui/images.dart';
 import 'package:movie_app/ui/pages/login/layouts/form.dart';
 import 'package:movie_app/ui/pages/login/layouts/socialLogins.dart';
+import 'package:movie_app/ui/pages/register/register.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -62,6 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                             InkWell(
                               onTap: () {
                                 // go to create account page
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> RegisterPage()));
                               },
                               child: Text('REGISTER'),
                             ),

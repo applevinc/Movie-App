@@ -6,11 +6,13 @@ class TextFieldInputBox extends StatelessWidget {
     this.hintText,
     this.suffixText,
     this.obscureText,
+    this.suffixFunction,
   }) : super(key: key);
 
   final String hintText;
   final String suffixText;
   final bool obscureText;
+  final Function suffixFunction;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class TextFieldInputBox extends StatelessWidget {
         hintText: hintText,
         hintStyle: TextStyle(color: Color(0xffA2A2A2)),
         suffix: InkWell(
-          onTap: () {},
+          onTap: suffixFunction,
           child: Text(
             suffixText,
             style: TextStyle(
