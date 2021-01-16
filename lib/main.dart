@@ -12,7 +12,6 @@ class MyApp extends StatelessWidget {
       title: 'Photoplay',
       debugShowCheckedModeBanner: false,
       home: LoginPage(),
-      initialRoute: '/',
     );
   }
 }

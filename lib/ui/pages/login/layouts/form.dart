@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/ui/components/button.dart';
 import 'package:movie_app/ui/components/textFieldInputBox.dart';
+import 'package:movie_app/ui/pages/bottomNavBar/bottomNavBar.dart';
 import 'package:movie_app/ui/pages/forgetPassword/forgetPassword.dart';
 
 class FormBody extends StatefulWidget {
@@ -36,6 +37,8 @@ class _FormBodyState extends State<FormBody> {
         CustomButton(
           onPressed: () {
             // go to home
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (BuildContext context) => BottomNavBarPage()));
           },
           title: 'LOGIN',
         ),
