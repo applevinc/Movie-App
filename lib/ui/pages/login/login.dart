@@ -16,36 +16,40 @@ class _LoginPageState extends State<LoginPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: SafeArea(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(Images.bg),
-                fit: BoxFit.contain,
-                alignment: Alignment.topCenter,
-              ),
-            ),
-            child: Column(
-              children: [
-                SizedBox(height: 50),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Image.asset(Images.logo),
+          child: SingleChildScrollView(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(Images.loginBackgroundImg),
+                  fit: BoxFit.cover,
+                  alignment: Alignment.topCenter,
                 ),
-                SizedBox(height: 20),
-                Expanded(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
+              ),
+              child: Column(
+                children: [
+                  SizedBox(height: 50),
+                  Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
+                      borderRadius: BorderRadius.circular(50),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-                      child: SingleChildScrollView(
+                    child: Image.asset(Images.logo),
+                  ),
+                  SizedBox(height: 20),
+                  Expanded(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [Colors.white.withOpacity(0.0), Color(0xfff5f5f5)],
+                            stops: [0, 0.4],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
                         child: Column(
                           children: [
                             FormBody(),
@@ -63,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                             InkWell(
                               onTap: () {
                                 // go to create account page
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=> RegisterPage()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
                               },
                               child: Text('REGISTER'),
                             ),
@@ -73,8 +77,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
