@@ -16,10 +16,10 @@ class _RegisterPageState extends State<RegisterPage> {
       home: Scaffold(
         backgroundColor: const Color(0xfff5f5f5),
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(60.0),
-          child: CustomAppBar(onTap: () {
-            Navigator.pop(context);
-          }),
+          preferredSize: Size.fromHeight(60),
+          child: CustomAppBar(
+            onTap: () => Navigator.pop(context),
+          ),
         ),
         body: SafeArea(
           child: SizedBox(
