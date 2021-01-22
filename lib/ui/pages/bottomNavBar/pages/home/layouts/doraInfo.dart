@@ -6,7 +6,6 @@ class DoraInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 20),
         Text('4.0', style: TextStyle(fontSize: 33)),
         RatingBar(
           initialRating: 3,
