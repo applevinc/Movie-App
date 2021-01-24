@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/ui/images.dart';
 import 'package:movie_app/ui/pages/bottomNavBar/pages/home/layouts/doraInfo.dart';
 import 'package:movie_app/ui/pages/bottomNavBar/pages/home/layouts/drawer.dart';
-import 'package:movie_app/ui/pages/bottomNavBar/pages/home/layouts/movies.dart';
+import 'package:movie_app/ui/pages/bottomNavBar/pages/home/layouts/watching.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -36,7 +36,6 @@ class _HomePageState extends State<HomePage> {
                     top: -50,
                     left: 30,
                     child: Container(
-                      //color: Colors.amber,
                       child: Image.asset(
                         Images.doraBanner,
                         height: 360,
@@ -60,7 +59,7 @@ class _HomePageState extends State<HomePage> {
               height: MediaQuery.of(context).size.height * 0.13,
               child: DoraInfo(),
             ),
-            Movies(),
+            Watching(),
           ],
         ),
       ),

@@ -43,10 +43,11 @@ class _LoginPageState extends State<LoginPage> {
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                            colors: [Colors.white.withOpacity(0.0), Color(0xfff5f5f5)],
-                            stops: [0, 0.4],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter),
+                          colors: [Colors.white.withOpacity(0.0), Color(0xfff5f5f5)],
+                          stops: [0, 0.4],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20, right: 20, top: 20),

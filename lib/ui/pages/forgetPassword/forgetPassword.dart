@@ -16,12 +16,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: const Color(0xfff5f5f5),
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(60.0),
-          child: CustomAppBar(onTap: () {
-            Navigator.pop(context);
-          }),
-        ),
+        appBar: buildCustomAppBar(context),
         body: SafeArea(
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -61,6 +56,19 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  PreferredSize buildCustomAppBar(BuildContext context) {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(60.0),
+      child: CustomAppBar(
+        arrowIconColor: Color(0xff7c7c7c),
+        backColor: Color(0xff7c7c7c),
+        onTap: () {
+          Navigator.pop(context);
+        },
       ),
     );
   }

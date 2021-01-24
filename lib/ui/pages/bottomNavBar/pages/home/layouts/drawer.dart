@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/ui/images.dart';
 
 class CustomDrawer extends StatelessWidget {
   @override
@@ -8,7 +9,9 @@ class CustomDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text('Drawer Header'),
+            child: CircleAvatar(
+              backgroundImage: AssetImage(Images.profilePic),
+            ),
           ),
           ListTile(
             title: Text('Movies'),

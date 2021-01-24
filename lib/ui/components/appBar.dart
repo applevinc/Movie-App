@@ -4,14 +4,18 @@ class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
     Key key,
     this.onTap,
+    this.arrowIconColor,
+    this.backColor,
   }) : super(key: key);
 
   final Function onTap;
+  final Color arrowIconColor;
+  final Color backColor;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: const Color(0xfff5f5f5),
+      backgroundColor: Colors.transparent,
       elevation: 0.0,
       leadingWidth: 100.0,
       leading: InkWell(
@@ -19,12 +23,12 @@ class CustomAppBar extends StatelessWidget {
         child: Row(
           children: [
             SizedBox(width: 20),
-            Icon(Icons.arrow_back, color: Color(0xff7c7c7c)),
+            Icon(Icons.arrow_back, color: arrowIconColor),
             SizedBox(width: 5),
             Text(
               'BACK',
               style: TextStyle(
-                color: Color(0xff7c7c7c),
+                color: backColor,
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
               ),

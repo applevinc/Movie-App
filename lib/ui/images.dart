@@ -9,4 +9,6 @@ class Images {
   static const String movieBanner1 = 'assets/images/asset-6.png';
   static const String movieBanner2 = 'assets/images/asset-7.png';
   static const String profilePic = 'assets/images/Profile picture.png';
+  static const String movieFeatureImg = 'assets/images/movieFeatureImg.png';
+  static const String michaelPana = 'assets/images/Michael Peña.png';
 }

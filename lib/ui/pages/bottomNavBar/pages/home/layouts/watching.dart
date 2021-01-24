@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/ui/images.dart';
+import 'package:movie_app/ui/pages/movieDetailPage/movieDetail.dart';
 
-class Movies extends StatelessWidget {
+class Watching extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -26,6 +27,9 @@ class Movies extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               children: [
                 GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetail()));
+                  },
                   child: Image.asset(Images.movieBanner1),
                 ),
                 SizedBox(height: 10),
@@ -52,3 +56,6 @@ class Movies extends StatelessWidget {
     );
   }
 }
+
+
+

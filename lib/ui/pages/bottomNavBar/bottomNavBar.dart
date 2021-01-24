@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/ui/pages/bottomNavBar/pageViewState.dart';
+import 'package:movie_app/ui/pages/bottomNavBar/events/pageViewState.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 class BottomNavBarPage extends StatefulWidget {
