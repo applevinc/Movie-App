@@ -10,7 +10,9 @@ class MovieDescription extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 20, left: 20),
       child: Text(
-          'Having spent most of her life exploring the jungle, nothing could prepare Dora for her most dangerous adventure yet — high school. '),
+        'Having spent most of her life exploring the jungle, nothing could prepare Dora for her most dangerous adventure yet — high school.',
+        style: TextStyle(color: Colors.white),
+      ),
     );
   }
 }

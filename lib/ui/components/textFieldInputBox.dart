@@ -20,12 +20,13 @@ class TextFieldInputBox extends StatelessWidget {
       elevation: 2,
       borderRadius: BorderRadius.circular(25),
       child: TextField(
+        style: TextStyle(color: Colors.white),
         obscureText: obscureText,
         cursorColor: Colors.black,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: 15, right: 15),
           filled: true,
-          fillColor: Colors.white,
+          fillColor: Color(0xff212121),
           hintText: hintText,
           hintStyle: TextStyle(color: Color(0xffA2A2A2)),
           suffix: InkWell(
@@ -34,7 +35,7 @@ class TextFieldInputBox extends StatelessWidget {
               suffixText,
               style: TextStyle(
                 fontSize: 11,
-                color: Colors.black,
+                color: Colors.white,
               ),
             ),
           ),

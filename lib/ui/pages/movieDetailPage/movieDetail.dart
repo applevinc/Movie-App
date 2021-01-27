@@ -13,7 +13,7 @@ class MovieDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Color(0xfff5f5f5),
+      backgroundColor: Colors.black,
       appBar: buildCustomAppBar(context),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints viewportConstraints) => SingleChildScrollView(
@@ -46,9 +46,7 @@ class MovieDetail extends StatelessWidget {
     return PreferredSize(
       preferredSize: Size.fromHeight(60.0),
       child: CustomAppBar(
-        arrowIconColor: Colors.white,
-        backColor: Colors.white,
-        onTap: () {
+        onBackTap: () {
           Navigator.pop(context);
         },
       ),

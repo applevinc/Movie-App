@@ -17,7 +17,10 @@ class SocialLogins extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Text('Social Logins'),
+                child: Text(
+                  'Social Logins',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
               Expanded(
                 child: horizontalLine(),
@@ -27,17 +30,17 @@ class SocialLogins extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              socialIcon(
+              SocialIcon(
                 iconName: 'F',
                 onTap: () {
-                  // login with facebook
+                  //Login with facebook
                 },
               ),
               SizedBox(width: 20),
-              socialIcon(
+              SocialIcon(
                 iconName: 'G',
                 onTap: () {
-                  // login with gmail
+                  //login with gmail
                 },
               ),
             ],
@@ -54,19 +57,31 @@ class SocialLogins extends StatelessWidget {
       child: Text(''),
     );
   }
+}
 
-  InkWell socialIcon({String iconName, Function onTap}) {
+class SocialIcon extends StatelessWidget {
+  const SocialIcon({
+    Key key,
+    this.iconName,
+    this.onTap,
+  }) : super(key: key);
+
+  final String iconName;
+  final Function onTap;
+
+  @override
+  Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(20),
         decoration: BoxDecoration(color: const Color(0xffFFBB3B), shape: BoxShape.circle),
         child: Text(
           iconName,
           style: TextStyle(
-            fontSize: 25,
+            fontSize: 35,
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
       ),

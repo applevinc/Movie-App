@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({
+class SearchAppBar extends StatelessWidget {
+  const SearchAppBar({
     Key key,
     this.onBackTap,
+    this.actions,
   }) : super(key: key);
 
   final Function onBackTap;
+  final List<Widget> actions;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class CustomAppBar extends StatelessWidget {
           ],
         ),
       ),
+      actions: actions,
     );
   }
 }

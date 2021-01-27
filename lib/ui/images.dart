@@ -11,4 +11,5 @@ class Images {
   static const String profilePic = 'assets/images/Profile picture.png';
   static const String movieFeatureImg = 'assets/images/movieFeatureImg.png';
   static const String michaelPana = 'assets/images/Michael Peña.png';
+  static const String homeBgImg = 'assets/images/homebgImg.png';
 }

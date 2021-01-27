@@ -14,28 +14,40 @@ class Cast extends StatelessWidget {
             style: const TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
           ),
         ),
         SizedBox(height: 5),
-        Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: Container(
-            height: 140,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                SizedBox(width: 15),
-                CastItem(),
-                CastItem(),
-                CastItem(),
-                CastItem(),
-                CastItem(),
-              ],
-            ),
-          ),
-        ),
+        CastList(),
       ],
+    );
+  }
+}
+
+class CastList extends StatelessWidget {
+  const CastList({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Container(
+        height: 140,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: [
+            SizedBox(width: 15),
+            CastItem(),
+            CastItem(),
+            CastItem(),
+            CastItem(),
+            CastItem(),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -49,15 +61,16 @@ class CastItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(left: 5, right: 5),
-      color: Colors.amber,
       child: Column(
         children: [
-          Image.asset(Images.michaelPana),
+          Image.asset(
+            Images.michaelPana,
+            color: Color(0xff707070),
+          ),
           SizedBox(height: 5),
           Text(
             'Michael Pana',
             style: TextStyle(
-              color: Color(0xff5C5C5C),
               fontSize: 12,
             ),
           ),

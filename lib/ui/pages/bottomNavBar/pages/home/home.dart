@@ -1,68 +1,65 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/ui/images.dart';
+import 'package:movie_app/ui/pages/bottomNavBar/pages/home/layouts/doraFeatureImage.dart';
 import 'package:movie_app/ui/pages/bottomNavBar/pages/home/layouts/doraInfo.dart';
-import 'package:movie_app/ui/pages/bottomNavBar/pages/home/layouts/drawer.dart';
 import 'package:movie_app/ui/pages/bottomNavBar/pages/home/layouts/watching.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      drawer: CustomDrawer(),
-      body: SafeArea(
-        child: ListView(
-          children: [
-            IconButton(
-              icon: Icon(Icons.menu),
-              alignment: Alignment.bottomLeft,
-              padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
-              color: const Color(0xff7C7C7C),
-              onPressed: () => _scaffoldKey.currentState.openDrawer(),
+      backgroundColor: Colors.black,
+      extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(60.0),
+        child: HomeSearchAppBar(),
+      ),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints viewportConstraints) => SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: viewportConstraints.maxHeight,
             ),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.5,
-              child: Stack(
-                overflow: Overflow.visible,
-                children: <Widget>[
-                  Positioned(
-                    top: -50,
-                    left: 30,
-                    child: Container(
-                      child: Image.asset(
-                        Images.doraBanner,
-                        height: 360,
-                        width: 360,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: -55,
-                    left: 80,
-                    child: Image.asset(
-                      Images.doraTitle,
-                      height: 230,
-                      width: 230,
-                    ),
-                  ),
-                ],
-              ),
+            child: Column(
+              children: [
+                DoraFeatureImage(),
+                DoraInfo(),
+                Watching(),
+              ],
             ),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.13,
-              child: DoraInfo(),
-            ),
-            Watching(),
-          ],
+          ),
         ),
       ),
+    );
+  }
+
+  PreferredSize buildCustomAppBar() {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(60.0),
+      child: HomeSearchAppBar(),
+    );
+  }
+}
+
+class HomeSearchAppBar extends StatelessWidget {
+  const HomeSearchAppBar({
+    Key key,
+    this.onBackTap,
+  }) : super(key: key);
+
+  final Function onBackTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0.0,
+      leadingWidth: 100.0,
+      actions: [
+        IconButton(
+          icon: Icon(Icons.search, color: Colors.white),
+          onPressed: () {},
+        )
+      ],
     );
   }
 }

@@ -11,6 +11,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Photoplay',
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.black,
+      ),
       home: LoginPage(),
     );
   }

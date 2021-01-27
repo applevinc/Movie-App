@@ -40,6 +40,7 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
                   label: 'PROFILE',
                 ),
               ],
+              backgroundColor: Colors.black,
               currentIndex: _page.state.selectedIndex,
               type: BottomNavigationBarType.fixed,
               showSelectedLabels: true,

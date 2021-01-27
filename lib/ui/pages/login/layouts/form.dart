@@ -15,7 +15,10 @@ class _FormBodyState extends State<FormBody> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Email'.toUpperCase()),
+        Text(
+          'Email'.toUpperCase(),
+          style: TextStyle(color: Colors.white),
+        ),
         SizedBox(height: 10),
         TextFieldInputBox(
           hintText: 'email here',
@@ -23,7 +26,10 @@ class _FormBodyState extends State<FormBody> {
           obscureText: false,
         ),
         SizedBox(height: 20),
-        Text('password'.toUpperCase()),
+        Text(
+          'password'.toUpperCase(),
+          style: TextStyle(color: Colors.white),
+        ),
         SizedBox(height: 10),
         TextFieldInputBox(
           hintText: 'password here',
