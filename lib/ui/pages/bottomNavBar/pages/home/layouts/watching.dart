@@ -17,6 +17,7 @@ class Watching extends StatelessWidget {
         ),
         SizedBox(height: 5),
         WatchingMovies(),
+        SizedBox(height: 50)
       ],
     );
   }

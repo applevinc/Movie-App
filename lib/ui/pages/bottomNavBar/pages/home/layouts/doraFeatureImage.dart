@@ -10,7 +10,6 @@ class DoraFeatureImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       //height: MediaQuery.of(context).size.height * 0.5,
-      color: Colors.red,
       child: Image.asset(
         Images.homeBgImg,
         fit: BoxFit.fitWidth,

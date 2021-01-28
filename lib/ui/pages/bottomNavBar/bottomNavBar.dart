@@ -18,29 +18,12 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
         return StateBuilder(
           observe: () => _page,
           builder: (BuildContext context, ReactiveModel model) => Scaffold(
+            extendBody: true,
             body: SizedBox(
               child: _page.state.pages.elementAt(_page.state.selectedIndex),
             ),
             bottomNavigationBar: BottomNavigationBar(
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'HOME',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.search),
-                  label: 'SEARCH',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.file_download),
-                  label: 'DOWNLOADS',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  label: 'PROFILE',
-                ),
-              ],
-              backgroundColor: Colors.black,
+              backgroundColor: Colors.black.withOpacity(0.75),
               currentIndex: _page.state.selectedIndex,
               type: BottomNavigationBarType.fixed,
               showSelectedLabels: true,
@@ -52,6 +35,16 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
               onTap: (index) {
                 _page.setState((s) => s.onPageTapped(index));
               },
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'HOME',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.movie),
+                  label: 'TOP RATED',
+                ),
+              ],
             ),
           ),
         );
