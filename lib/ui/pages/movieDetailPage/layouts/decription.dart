@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/viewModels/movieViewModel.dart';
 
 class MovieDescription extends StatelessWidget {
+
   const MovieDescription({
-    Key key,
+    Key key, this.movie,
   }) : super(key: key);
+
+  final MovieViewModel movie;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 20, left: 20),
       child: Text(
-        'Having spent most of her life exploring the jungle, nothing could prepare Dora for her most dangerous adventure yet — high school.',
+        movie.description,
         style: TextStyle(color: Colors.white),
       ),
     );

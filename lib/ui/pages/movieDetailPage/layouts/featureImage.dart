@@ -1,7 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_app/ui/images.dart';
+import 'package:movie_app/viewModels/movieViewModel.dart';
 
 class FeatureImage extends StatelessWidget {
+  final MovieViewModel movie;
+
+  const FeatureImage({Key key, this.movie}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -10,7 +14,9 @@ class FeatureImage extends StatelessWidget {
       decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.fitWidth,
-          image: AssetImage(Images.movieFeatureImg),
+          image: CachedNetworkImageProvider(
+            movie.fullPosterUrl,
+          ),
         ),
       ),
     );

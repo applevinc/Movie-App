@@ -24,13 +24,14 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.0
-  states_rebuilder: ^3.2.0
   flutter_rating_bar: ^3.2.0+1
+  provider: ^4.3.3
+  http: ^0.12.2
+  cached_network_image: ^2.5.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -43,7 +44,7 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-   - assets/images/
+    - assets/images/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

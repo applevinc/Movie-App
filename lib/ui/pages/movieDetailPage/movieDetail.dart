@@ -7,8 +7,13 @@ import 'package:movie_app/ui/pages/movieDetailPage/layouts/featureImage.dart';
 import 'package:movie_app/ui/pages/movieDetailPage/layouts/rating.dart';
 import 'package:movie_app/ui/pages/movieDetailPage/layouts/title.dart';
 import 'package:movie_app/ui/pages/movieDetailPage/layouts/watch.dart';
+import 'package:movie_app/viewModels/movieViewModel.dart';
 
 class MovieDetail extends StatelessWidget {
+  final MovieViewModel movie;
+
+  const MovieDetail({Key key, this.movie}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,12 +31,12 @@ class MovieDetail extends StatelessWidget {
                 Stack(
                   overflow: Overflow.visible,
                   children: [
-                    FeatureImage(),
-                    MovieTitle(),
+                    FeatureImage(movie: movie),
+                    MovieTitle(movie: movie),
                   ],
                 ),
                 MovieRating(),
-                MovieDescription(),
+                MovieDescription(movie: movie),
                 WatchMovie(),
                 Cast(),
               ],

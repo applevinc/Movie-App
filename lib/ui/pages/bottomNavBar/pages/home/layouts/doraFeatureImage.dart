@@ -13,7 +13,6 @@ class DoraFeatureImage extends StatelessWidget {
       child: Image.asset(
         Images.homeBgImg,
         fit: BoxFit.fitWidth,
-        height: 560,
         width: MediaQuery.of(context).size.width,
       ),
     );

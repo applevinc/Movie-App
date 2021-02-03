@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/viewModels/movieViewModel.dart';
 
 class MovieTitle extends StatelessWidget {
+  final MovieViewModel movie;
+
+  const MovieTitle({
+    Key key,
+    this.movie,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -16,7 +23,7 @@ class MovieTitle extends StatelessWidget {
             end: Alignment.bottomCenter,
           ),
         ),
-        child: TitleAndGenre(),
+        child: TitleAndGenre(movie: movie),
       ),
     );
   }
@@ -25,7 +32,10 @@ class MovieTitle extends StatelessWidget {
 class TitleAndGenre extends StatelessWidget {
   const TitleAndGenre({
     Key key,
+    this.movie,
   }) : super(key: key);
+
+  final MovieViewModel movie;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +43,7 @@ class TitleAndGenre extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Dora and the lost city of gold',
+          movie.title,
           style: TextStyle(fontSize: 23, color: Colors.white),
         ),
         Text(

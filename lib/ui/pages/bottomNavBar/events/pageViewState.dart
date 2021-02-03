@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/ui/pages/bottomNavBar/pages/home/home.dart';
 import 'package:movie_app/ui/pages/bottomNavBar/pages/topRated/topRated.dart';
 
-class PageViewState {
+class PageViewState with ChangeNotifier {
   int _selectedIndex = 0;
   int get selectedIndex => _selectedIndex;
 
@@ -14,5 +14,6 @@ class PageViewState {
 
   void onPageTapped(int index) {
     _selectedIndex = index;
+    notifyListeners();
   }
 }
