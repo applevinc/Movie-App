@@ -28,6 +28,8 @@ dependencies:
   provider: ^4.3.3
   http: ^0.12.2
   cached_network_image: ^2.5.0
+  google_fonts: ^1.1.2
+  sizer: ^1.1.8
 
 dev_dependencies:
   flutter_test:

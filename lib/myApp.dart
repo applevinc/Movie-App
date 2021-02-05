@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/newUI/screens/home/home.dart';
 import 'package:movie_app/ui/pages/bottomNavBar/events/pageViewState.dart';
-import 'package:movie_app/ui/pages/login/login.dart';
 import 'package:movie_app/viewModels/movieListViewModel.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -12,10 +13,20 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => PageViewState()),
         ChangeNotifierProvider(create: (context) => MovieListViewModel()),
       ],
-      child: MaterialApp(
-        title: 'Photoplay',
-        debugShowCheckedModeBanner: false,
-        home: LoginPage(),
+      child: LayoutBuilder(
+        builder: (context, constraints) => OrientationBuilder(
+          builder: (context, orientation) {
+            SizerUtil().init(constraints, orientation);
+            return MaterialApp(
+              title: 'Photoplay',
+              theme: ThemeData.dark().copyWith(
+                scaffoldBackgroundColor: Colors.black,
+              ),
+              debugShowCheckedModeBanner: false,
+              home: NewHomePage(),
+            );
+          },
+        ),
       ),
     );
   }

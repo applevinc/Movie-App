@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeSearchAppBar extends StatelessWidget {
   const HomeSearchAppBar({
@@ -16,12 +17,22 @@ class HomeSearchAppBar extends StatelessWidget {
       backgroundColor: Colors.transparent,
       elevation: 0.0,
       leadingWidth: 100.0,
-      title: Text(title, style: TextStyle(color: Colors.white)),
+      title: Text(
+        title,
+        style: GoogleFonts.rammettoOne(
+          color: Colors.white,
+          fontSize: 27,
+        ),
+      ),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 20),
           child: IconButton(
-            icon: Icon(Icons.search, color: Colors.white),
+            icon: Icon(
+              Icons.search,
+              color: Colors.white,
+              size: 30,
+            ),
             onPressed: () {
               // show search page
             },

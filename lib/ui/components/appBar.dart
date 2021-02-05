@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/ui/settings/theme/colorTheme.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
@@ -19,14 +20,15 @@ class CustomAppBar extends StatelessWidget {
         child: Row(
           children: [
             SizedBox(width: 20),
-            Icon(Icons.arrow_back, color: Colors.white),
-            SizedBox(width: 5),
-            Text(
-              'BACK',
-              style: TextStyle(
+            Container(
+              padding: EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                color: kContainerColor,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.arrow_back,
                 color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
               ),
             ),
           ],
