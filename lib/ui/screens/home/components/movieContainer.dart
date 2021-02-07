@@ -1,14 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_app/newUI/screens/movieDetails/movieDetail.dart';
-import 'package:movie_app/ui/images.dart';
+import 'package:movie_app/ui/screens/movieDetails/movieDetail.dart';
 import 'package:movie_app/ui/settings/theme/colorTheme.dart';
+import 'package:movie_app/viewModels/movieViewModel.dart';
 import 'package:sizer/sizer.dart';
 
 class MovieContainer extends StatelessWidget {
   const MovieContainer({
     Key key,
+    this.movie,
   }) : super(key: key);
+
+  final MovieViewModel movie;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +20,12 @@ class MovieContainer extends StatelessWidget {
       padding: EdgeInsets.all(20),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetails()));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MovieDetails(movie: movie),
+            ),
+          );
         },
         child: Stack(
           overflow: Overflow.visible,
@@ -29,8 +38,8 @@ class MovieContainer extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
-            MoviePoster(),
-            MovieShortDescription(),
+            MoviePoster(movie: movie),
+            MovieShortDescription(movie: movie),
           ],
         ),
       ),
@@ -41,7 +50,10 @@ class MovieContainer extends StatelessWidget {
 class MovieShortDescription extends StatelessWidget {
   const MovieShortDescription({
     Key key,
+    this.movie,
   }) : super(key: key);
+
+  final MovieViewModel movie;
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +67,10 @@ class MovieShortDescription extends StatelessWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                movieTitle(),
-                _movieRating(),
+                movieTitle(movie),
+                _movieRating(movie),
               ],
             ),
             SizedBox(height: 5),
@@ -98,24 +111,26 @@ class MovieShortDescription extends StatelessWidget {
     );
   }
 
-  Text _movieRating() {
+  Text _movieRating(MovieViewModel movie) {
     return Text(
-      '10',
+      movie.rating.toString(),
       style: GoogleFonts.montserrat(
         color: const Color(0xffFFBB3B),
-        fontSize: 20,
+        fontSize: 17,
         fontWeight: FontWeight.bold,
       ),
     );
   }
 
-  static SizedBox movieTitle() {
-    return SizedBox(
+  static Expanded movieTitle(MovieViewModel movie) {
+    return Expanded(
       child: Text(
-        'Movie Title',
+        movie.title,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
         style: GoogleFonts.montserrat(
           color: Color(0xffC1C1C6),
-          fontSize: 20,
+          fontSize: 17,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -126,15 +141,39 @@ class MovieShortDescription extends StatelessWidget {
 class MoviePoster extends StatelessWidget {
   const MoviePoster({
     Key key,
+    this.movie,
   }) : super(key: key);
+
+  final MovieViewModel movie;
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
       left: 20.0,
-      top: -10.0,
-      child: Image.asset(
-        Images.movieBanner1,
+      top: -25.0,
+      child: Hero(
+        tag: 'poster${movie.id}',
+        child: CachedNetworkImage(
+          imageUrl: movie.poster,
+          height: 27.0.h,
+          width: 27.0.w,
+          imageBuilder: (context, imageProvider) => Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          placeholder: (context, url) => Center(
+            child: CircularProgressIndicator(
+              //backgroundColor: Colors.black,
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+            ),
+          ),
+          errorWidget: (context, url, error) => Icon(Icons.error),
+        ),
       ),
     );
   }

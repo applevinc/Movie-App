@@ -1,25 +1,38 @@
 class Movie {
+  final int id;
   final String title;
-  final List poster;
+  final String poster;
   final String description;
-  final String runTime;
-  //final double rating;
+  final DateTime releaseDate;
+
+  final List genre;
+  final double rating;
 
   Movie({
+    this.id,
     this.title,
     this.poster,
     this.description,
-    this.runTime,
-    //this.rating,
+    this.releaseDate,
+    this.genre,
+    this.rating,
   });
 
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
+      id: json["id"],
       title: json['title'],
-      poster: json['imageurl'],
-      description: json['synopsis'],
-      runTime: json['runtime'],
-      //rating: json['imdbrating'],
+      poster: json["poster_path"],
+      description: json["overview"],
+      releaseDate: DateTime.parse(json["release_date"]),
+
+      /*
+      List.from() constructor creates a new list
+      json['genre_ids'] is a list of ints from the json data
+      .map((an element in genre_ids list) => returns the element)
+      */
+      genre: List<int>.from(json["genre_ids"].map((x) => x)),
+      rating: json["vote_average"].toDouble(),
     );
   }
 }

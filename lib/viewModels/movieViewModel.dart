@@ -7,9 +7,10 @@ class MovieViewModel {
     this._movie = movie;
   }
 
+  int get id => _movie.id;
   String get title => _movie.title;
   String get description => _movie.description;
-  String get fullPosterUrl => _movie.poster[0];
-  String get runtime => _movie.runTime;
-  //double get rating => _movie.rating;
+  String get poster => 'https://image.tmdb.org/t/p/w500${_movie.poster}';
+  List get genre => _movie.genre;
+  double get rating => _movie.rating;
 }

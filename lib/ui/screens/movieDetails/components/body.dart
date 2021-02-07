@@ -1,14 +1,19 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_app/newUI/screens/home/components/movieContainer.dart';
-import 'package:movie_app/ui/images.dart';
+import 'package:movie_app/ui/screens/home/components/movieContainer.dart';
 import 'package:movie_app/ui/settings/theme/colorTheme.dart';
+import 'package:movie_app/viewModels/movieViewModel.dart';
+import 'package:sizer/sizer.dart';
 
 class MovieDetailBody extends StatelessWidget {
   const MovieDetailBody({
     Key key,
+    this.movie,
   }) : super(key: key);
+
+  final MovieViewModel movie;
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +37,12 @@ class MovieDetailBody extends StatelessWidget {
               child: Stack(
                 overflow: Overflow.visible,
                 children: [
-                  MovieDetailPoster(),
-                  MovieDetailShortDescription(),
+                  MovieDetailPoster(movie: movie),
+                  MovieDetailShortDescription(movie: movie),
                 ],
               ),
             ),
-            MovieSynopsis(),
+            MovieSynopsis(movie: movie),
             SizedBox(height: 25),
             BuyNowButton(),
           ],
@@ -80,7 +85,10 @@ class BuyNowButton extends StatelessWidget {
 class MovieSynopsis extends StatelessWidget {
   const MovieSynopsis({
     Key key,
+    this.movie,
   }) : super(key: key);
+
+  final MovieViewModel movie;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +96,7 @@ class MovieSynopsis extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 20),
+          padding: const EdgeInsets.only(left: 20, top: 20),
           child: Text(
             'Introduction',
             style: GoogleFonts.montserrat(
@@ -102,7 +110,7 @@ class MovieSynopsis extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.',
+            movie.description,
             style: GoogleFonts.montserrat(
               color: Color(0xffC1C1C6),
               fontSize: 15,
@@ -117,19 +125,23 @@ class MovieSynopsis extends StatelessWidget {
 class MovieDetailShortDescription extends StatelessWidget {
   const MovieDetailShortDescription({
     Key key,
+    this.movie,
   }) : super(key: key);
+
+  final MovieViewModel movie;
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      right: 20.0,
+      right: 10.0.w,
       top: 20.0,
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.55,
+        height: 30.0.h,
+        width: 40.0.w,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MovieShortDescription.movieTitle(),
+            _movieTitle(movie),
             SizedBox(height: 5),
             Row(
               children: [
@@ -143,18 +155,32 @@ class MovieDetailShortDescription extends StatelessWidget {
             SizedBox(height: 5),
             _movieType(text: 'Runtime: 85min'),
             SizedBox(height: 5),
-            starRating(),
+            starRating(movie),
           ],
         ),
       ),
     );
   }
 
-  Row starRating() {
+  Flexible _movieTitle(MovieViewModel movie) {
+    return Flexible(
+      child: Text(
+        movie.title,
+        maxLines: 2,
+        style: GoogleFonts.montserrat(
+          color: Color(0xffC1C1C6),
+          fontSize: 17,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  Row starRating(MovieViewModel movie) {
     return Row(
       children: [
         RatingBarIndicator(
-          rating: 8,
+          rating: movie.rating,
           itemBuilder: (context, index) => Icon(
             Icons.star,
             color: kYellow,
@@ -164,7 +190,7 @@ class MovieDetailShortDescription extends StatelessWidget {
         ),
         SizedBox(width: 5),
         Text(
-          '8.0',
+          movie.rating.toString(),
           style: GoogleFonts.montserrat(
             color: const Color(0xffFFBB3B),
             fontSize: 16,
@@ -189,14 +215,39 @@ class MovieDetailShortDescription extends StatelessWidget {
 class MovieDetailPoster extends StatelessWidget {
   const MovieDetailPoster({
     Key key,
+    this.movie,
   }) : super(key: key);
+
+  final MovieViewModel movie;
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: -20,
-      child: Image.asset(
-        Images.movieBanner1,
+      left: 20.0,
+      top: -25.0,
+      child: Hero(
+        tag: 'poster${movie.id}',
+        child: CachedNetworkImage(
+          imageUrl: movie.poster,
+          height: 27.0.h,
+          width: 27.0.w,
+          imageBuilder: (context, imageProvider) => Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          placeholder: (context, url) => Center(
+            child: CircularProgressIndicator(
+              //backgroundColor: Colors.black,
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+            ),
+          ),
+          errorWidget: (context, url, error) => Icon(Icons.error),
+        ),
       ),
     );
   }

@@ -12,16 +12,34 @@ enum LoadingStatus {
 class MovieListViewModel with ChangeNotifier {
   LoadingStatus loadingStatus = LoadingStatus.empty;
 
-  List<MovieViewModel> movies = List<MovieViewModel>();
+  List<MovieViewModel> popularMoviesList = List<MovieViewModel>();
+  List<MovieViewModel> upcomingMoviesList = List<MovieViewModel>();
 
-  Future<List<Movie>> newMovies() async {
-    List<Movie> movies = await MovieService().fetchNewMovies();
+  Future<List<Movie>> popularMovies() async {
+    List<Movie> movies = await MovieService.fetchPopularMovies();
     loadingStatus = LoadingStatus.searching;
     notifyListeners();
 
-    this.movies = movies.map((movie) => MovieViewModel(movie: movie)).toList();
+    this.popularMoviesList = movies.map((movie) => MovieViewModel(movie: movie)).toList();
 
-    if (this.movies.isEmpty) {
+    if (this.popularMoviesList.isEmpty) {
+      loadingStatus = LoadingStatus.empty;
+    } else {
+      loadingStatus = LoadingStatus.completed;
+    }
+    notifyListeners();
+
+    return movies;
+  }
+
+  Future<List<Movie>> upcomingMovies() async {
+    List<Movie> movies = await MovieService.fetchUpcomingMovies();
+    loadingStatus = LoadingStatus.searching;
+    notifyListeners();
+
+    this.upcomingMoviesList = movies.map((movie) => MovieViewModel(movie: movie)).toList();
+
+    if (this.upcomingMoviesList.isEmpty) {
       loadingStatus = LoadingStatus.empty;
     } else {
       loadingStatus = LoadingStatus.completed;

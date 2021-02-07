@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/newUI/screens/movieDetails/components/body.dart';
-import 'package:movie_app/ui/components/appBar.dart';
-import 'package:movie_app/ui/images.dart';
+import 'package:movie_app/ui/components/backAppBar.dart';
+
+import 'package:movie_app/ui/screens/movieDetails/components/body.dart';
+import 'package:movie_app/viewModels/movieViewModel.dart';
 import 'package:sizer/sizer.dart';
 
 class MovieDetails extends StatelessWidget {
+  const MovieDetails({Key key, this.movie}) : super(key: key);
+
+  final MovieViewModel movie;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,14 +31,14 @@ class MovieDetails extends StatelessWidget {
                       Colors.black.withOpacity(0.8),
                       BlendMode.darken,
                     ),
-                    image: AssetImage(Images.movieBanner1),
+                    image: NetworkImage(movie.poster),
                   ),
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height * 0.3),
-                    MovieDetailBody(),
+                    MovieDetailBody(movie: movie),
                   ],
                 ),
               ),
@@ -47,7 +52,7 @@ class MovieDetails extends StatelessWidget {
   PreferredSize _buildCustomAppBar(BuildContext context) {
     return PreferredSize(
       preferredSize: Size.fromHeight(60.0),
-      child: CustomAppBar(
+      child: BackAppBar(
         onBackTap: () {
           Navigator.pop(context);
         },

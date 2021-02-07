@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_app/newUI/screens/home/components/movieContainer.dart';
-import 'package:movie_app/ui/pages/bottomNavBar/components/seachBar.dart';
+import 'package:movie_app/ui/components/seachAppBar.dart';
+import 'package:movie_app/ui/screens/home/components/buildMovies.dart';
+
 
 class NewHomePage extends StatelessWidget {
   @override
@@ -13,9 +14,7 @@ class NewHomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             NewArrivalsHeaderText(),
-            MovieContainer(),
-            SizedBox(height: 20),
-            MovieContainer(),
+            BuildMovies(),
           ],
         ),
       ),

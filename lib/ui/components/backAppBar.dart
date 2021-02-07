@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/ui/settings/theme/colorTheme.dart';
 
-class SearchAppBar extends StatelessWidget {
-  const SearchAppBar({
+class BackAppBar extends StatelessWidget {
+  const BackAppBar({
     Key key,
     this.onBackTap,
-    this.actions,
   }) : super(key: key);
 
   final Function onBackTap;
-  final List<Widget> actions;
 
   @override
   Widget build(BuildContext context) {
@@ -21,20 +20,21 @@ class SearchAppBar extends StatelessWidget {
         child: Row(
           children: [
             SizedBox(width: 20),
-            Icon(Icons.arrow_back, color: Colors.white),
-            SizedBox(width: 5),
-            Text(
-              'BACK',
-              style: TextStyle(
+            Container(
+              padding: EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                color: kContainerColor,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.arrow_back,
                 color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
               ),
             ),
           ],
         ),
       ),
-      actions: actions,
     );
   }
 }
+
