@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/domain/movie.dart';
-import 'package:movie_app/ui/screens/home/components/movieContainer.dart';
+import 'package:movie_app/ui/components/movieContainer.dart';
 import 'package:movie_app/viewModels/movieListViewModel.dart';
 import 'package:provider/provider.dart';
 
-class BuildMovies extends StatefulWidget {
+class BuildPopularMovies extends StatefulWidget {
   @override
-  _BuildMoviesState createState() => _BuildMoviesState();
+  _BuildPopularMoviesState createState() => _BuildPopularMoviesState();
 }
 
-class _BuildMoviesState extends State<BuildMovies> {
+class _BuildPopularMoviesState extends State<BuildPopularMovies> {
   @override
   void initState() {
     super.initState();

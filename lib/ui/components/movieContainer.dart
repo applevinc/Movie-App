@@ -19,29 +19,42 @@ class MovieContainer extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(20),
       child: GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MovieDetails(movie: movie),
-            ),
-          );
-        },
+        onTap: () => _showMovieDetails(context, movie),
         child: Stack(
           overflow: Overflow.visible,
           children: [
-            Container(
-              height: 25.0.h,
-              width: SizerUtil.orientation == Orientation.portrait ? 100.0.w : 70.0.h,
-              decoration: BoxDecoration(
-                color: Colors.grey[850],
-                borderRadius: BorderRadius.circular(20),
-              ),
-            ),
+            MovieContainerGreyBox(),
             MoviePoster(movie: movie),
             MovieShortDescription(movie: movie),
           ],
         ),
+      ),
+    );
+  }
+
+  void _showMovieDetails(context, movie) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MovieDetails(movie: movie),
+      ),
+    );
+  }
+}
+
+class MovieContainerGreyBox extends StatelessWidget {
+  const MovieContainerGreyBox({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 25.0.h,
+      width: SizerUtil.orientation == Orientation.portrait ? 100.0.w : 70.0.h,
+      decoration: BoxDecoration(
+        color: Colors.grey[850],
+        borderRadius: BorderRadius.circular(20),
       ),
     );
   }
@@ -82,18 +95,26 @@ class MovieShortDescription extends StatelessWidget {
               ],
             ),
             SizedBox(height: 5),
-            Text(
-              'Genre: Drama',
-              style: GoogleFonts.montserrat(color: Color(0xff8D8E96), fontSize: 13),
-            ),
+            genre(),
             SizedBox(height: 5),
-            Text(
-              'Runtime: 85min',
-              style: GoogleFonts.montserrat(color: Color(0xff8D8E96), fontSize: 13),
-            ),
+            runTime(),
           ],
         ),
       ),
+    );
+  }
+
+  static Text runTime() {
+    return Text(
+      'Runtime: 85min',
+      style: GoogleFonts.montserrat(color: Color(0xff8D8E96), fontSize: 13),
+    );
+  }
+
+  static Text genre() {
+    return Text(
+      'Genre: Drama',
+      style: GoogleFonts.montserrat(color: Color(0xff8D8E96), fontSize: 13),
     );
   }
 
@@ -168,7 +189,6 @@ class MoviePoster extends StatelessWidget {
           ),
           placeholder: (context, url) => Center(
             child: CircularProgressIndicator(
-              //backgroundColor: Colors.black,
               valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
             ),
           ),

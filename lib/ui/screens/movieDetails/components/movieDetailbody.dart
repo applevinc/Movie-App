@@ -1,8 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_app/ui/screens/home/components/movieContainer.dart';
+import 'package:movie_app/ui/components/movieContainer.dart';
 import 'package:movie_app/ui/settings/theme/colorTheme.dart';
 import 'package:movie_app/viewModels/movieViewModel.dart';
 import 'package:sizer/sizer.dart';
@@ -37,7 +36,7 @@ class MovieDetailBody extends StatelessWidget {
               child: Stack(
                 overflow: Overflow.visible,
                 children: [
-                  MovieDetailPoster(movie: movie),
+                  MoviePoster(movie: movie),
                   MovieDetailShortDescription(movie: movie),
                 ],
               ),
@@ -141,7 +140,7 @@ class MovieDetailShortDescription extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _movieTitle(movie),
+            MovieShortDescription.movieTitle(movie),
             SizedBox(height: 5),
             Row(
               children: [
@@ -151,26 +150,12 @@ class MovieDetailShortDescription extends StatelessWidget {
               ],
             ),
             SizedBox(height: 5),
-            _movieType(text: 'Genre: Drama'),
+            MovieShortDescription.genre(),
             SizedBox(height: 5),
-            _movieType(text: 'Runtime: 85min'),
+            MovieShortDescription.runTime(),
             SizedBox(height: 5),
             starRating(movie),
           ],
-        ),
-      ),
-    );
-  }
-
-  Flexible _movieTitle(MovieViewModel movie) {
-    return Flexible(
-      child: Text(
-        movie.title,
-        maxLines: 2,
-        style: GoogleFonts.montserrat(
-          color: Color(0xffC1C1C6),
-          fontSize: 17,
-          fontWeight: FontWeight.bold,
         ),
       ),
     );
@@ -200,55 +185,45 @@ class MovieDetailShortDescription extends StatelessWidget {
       ],
     );
   }
-
-  Text _movieType({String text}) {
-    return Text(
-      text,
-      style: GoogleFonts.montserrat(
-        color: Color(0xff8D8E96),
-        fontSize: 13,
-      ),
-    );
-  }
 }
 
-class MovieDetailPoster extends StatelessWidget {
-  const MovieDetailPoster({
-    Key key,
-    this.movie,
-  }) : super(key: key);
+// class MovieDetailPoster extends StatelessWidget {
+//   const MovieDetailPoster({
+//     Key key,
+//     this.movie,
+//   }) : super(key: key);
 
-  final MovieViewModel movie;
+//   final MovieViewModel movie;
 
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      left: 20.0,
-      top: -25.0,
-      child: Hero(
-        tag: 'poster${movie.id}',
-        child: CachedNetworkImage(
-          imageUrl: movie.poster,
-          height: 27.0.h,
-          width: 27.0.w,
-          imageBuilder: (context, imageProvider) => Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          placeholder: (context, url) => Center(
-            child: CircularProgressIndicator(
-              //backgroundColor: Colors.black,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-            ),
-          ),
-          errorWidget: (context, url, error) => Icon(Icons.error),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Positioned(
+//       left: 20.0,
+//       top: -25.0,
+//       child: Hero(
+//         tag: 'poster${movie.id}',
+//         child: CachedNetworkImage(
+//           imageUrl: movie.poster,
+//           height: 27.0.h,
+//           width: 27.0.w,
+//           imageBuilder: (context, imageProvider) => Container(
+//             decoration: BoxDecoration(
+//               borderRadius: BorderRadius.circular(20),
+//               image: DecorationImage(
+//                 image: imageProvider,
+//                 fit: BoxFit.cover,
+//               ),
+//             ),
+//           ),
+//           placeholder: (context, url) => Center(
+//             child: CircularProgressIndicator(
+//               //backgroundColor: Colors.black,
+//               valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+//             ),
+//           ),
+//           errorWidget: (context, url, error) => Icon(Icons.error),
+//         ),
+//       ),
+//     );
+//   }
+// }

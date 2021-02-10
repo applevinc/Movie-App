@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/ui/components/backAppBar.dart';
 
-import 'package:movie_app/ui/screens/movieDetails/components/body.dart';
+import 'package:movie_app/ui/screens/movieDetails/components/movieDetailbody.dart';
 import 'package:movie_app/viewModels/movieViewModel.dart';
 import 'package:sizer/sizer.dart';
 
@@ -24,16 +24,7 @@ class MovieDetails extends StatelessWidget {
             child: IntrinsicHeight(
               child: Container(
                 width: 100.0.w,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(0.8),
-                      BlendMode.darken,
-                    ),
-                    image: NetworkImage(movie.poster),
-                  ),
-                ),
+                decoration: moviePosterBackground(),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -45,6 +36,19 @@ class MovieDetails extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  BoxDecoration moviePosterBackground() {
+    return BoxDecoration(
+      image: DecorationImage(
+        fit: BoxFit.cover,
+        colorFilter: ColorFilter.mode(
+          Colors.black.withOpacity(0.8),
+          BlendMode.darken,
+        ),
+        image: NetworkImage(movie.poster),
       ),
     );
   }
