@@ -6,10 +6,12 @@ class HomeSearchAppBar extends StatelessWidget {
     Key key,
     this.onBackTap,
     this.title,
+    this.bottom,
   }) : super(key: key);
 
   final Function onBackTap;
   final String title;
+  final TabBar bottom;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,7 @@ class HomeSearchAppBar extends StatelessWidget {
           ),
         )
       ],
+      bottom: bottom,
     );
   }
 }

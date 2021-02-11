@@ -17,7 +17,7 @@ class MovieContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
       child: GestureDetector(
         onTap: () => _showMovieDetails(context, movie),
         child: Stack(
@@ -143,8 +143,8 @@ class MovieShortDescription extends StatelessWidget {
     );
   }
 
-  static Expanded movieTitle(MovieViewModel movie) {
-    return Expanded(
+  static Flexible movieTitle(MovieViewModel movie) {
+    return Flexible(
       child: Text(
         movie.title,
         maxLines: 2,
@@ -171,13 +171,13 @@ class MoviePoster extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
       left: 20.0,
-      top: -25.0,
+      top: -23.0,
       child: Hero(
         tag: 'poster${movie.id}',
         child: CachedNetworkImage(
           imageUrl: movie.poster,
-          height: 27.0.h,
-          width: 27.0.w,
+          height: 25.0.h,
+          width: 25.0.w,
           imageBuilder: (context, imageProvider) => Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),

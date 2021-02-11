@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/ui/components/seachAppBar.dart';
-import 'package:movie_app/ui/screens/home/components/buildPopularMovies.dart';
-
+import 'package:movie_app/ui/screens/home/components/tabHeaderText.dart';
+import 'package:movie_app/ui/screens/home/layouts/buildPopularMovies.dart';
+import 'package:movie_app/ui/screens/home/layouts/buildUpcomingMovies.dart';
+import 'package:movie_app/ui/settings/theme/colorTheme.dart';
+import 'package:sizer/sizer.dart';
 
 class NewHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildTopRatedSearchAppBar(),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            NewArrivalsHeaderText(),
-            BuildPopularMovies(),
-          ],
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: _buildTopRatedSearchAppBar(),
+        body: Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: TabBarView(
+            children: [
+              BuildPopularMovies(),
+              BuildUpcomingMovies(),
+            ],
+          ),
         ),
       ),
     );
@@ -23,27 +28,15 @@ class NewHomePage extends StatelessWidget {
 
   PreferredSize _buildTopRatedSearchAppBar() {
     return PreferredSize(
-      preferredSize: Size.fromHeight(60.0),
-      child: HomeSearchAppBar(title: 'MOVIES'),
-    );
-  }
-}
-
-class NewArrivalsHeaderText extends StatelessWidget {
-  const NewArrivalsHeaderText({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20, bottom: 20),
-      child: Text(
-        'New Arrivals',
-        style: GoogleFonts.montserrat(
-          color: Color(0xffC1C1C6),
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
+      preferredSize: Size.fromHeight(15.0.h),
+      child: HomeSearchAppBar(
+        title: 'MOVIES',
+        bottom: TabBar(
+          indicatorColor: kYellow,
+          tabs: [
+            TabHeaderText(title: 'Now Popular'),
+            TabHeaderText(title: 'Upcoming'),
+          ],
         ),
       ),
     );

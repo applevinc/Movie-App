@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/domain/movie.dart';
 import 'package:movie_app/ui/components/movieContainer.dart';
+import 'package:movie_app/ui/settings/theme/colorTheme.dart';
 import 'package:movie_app/viewModels/movieListViewModel.dart';
 import 'package:provider/provider.dart';
 
@@ -20,26 +21,24 @@ class _BuildPopularMoviesState extends State<BuildPopularMovies> {
   Widget build(BuildContext context) {
     var movies = Provider.of<MovieListViewModel>(context);
 
-    return Expanded(
-      child: FutureBuilder<List<Movie>>(
-        future: movies.popularMovies(),
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.hasData) {
-            return _buildMovieListView(movies);
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text(
-                "${snapshot.error}",
-                style: TextStyle(color: Colors.white),
-              ),
-            );
-          }
-
+    return FutureBuilder<List<Movie>>(
+      future: movies.popularMovies(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.hasData) {
+          return _buildMovieListView(movies);
+        } else if (snapshot.hasError) {
           return Center(
-            child: CircularProgressIndicator(backgroundColor: Color(0xffFFBB3B)),
+            child: Text(
+              "${snapshot.error}",
+              style: TextStyle(color: Colors.white),
+            ),
           );
-        },
-      ),
+        }
+
+        return Center(
+          child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(kYellow)),
+        );
+      },
     );
   }
 
