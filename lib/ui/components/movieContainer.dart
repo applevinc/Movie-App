@@ -95,26 +95,34 @@ class MovieShortDescription extends StatelessWidget {
               ],
             ),
             SizedBox(height: 5),
-            genre(),
+            genre(movie),
             SizedBox(height: 5),
-            runTime(),
+            runTime(movie),
           ],
         ),
       ),
     );
   }
 
-  static Text runTime() {
+  static Text runTime(MovieViewModel movie) {
     return Text(
-      'Runtime: 85min',
-      style: GoogleFonts.montserrat(color: Color(0xff8D8E96), fontSize: 13),
+      'Release Date: ${movie.releasedDate}',
+      style: GoogleFonts.montserrat(
+        color: Color(0xff8D8E96),
+        fontSize: 13,
+      ),
     );
   }
 
-  static Text genre() {
+  static Text genre(MovieViewModel movie) {
     return Text(
-      'Genre: Drama',
-      style: GoogleFonts.montserrat(color: Color(0xff8D8E96), fontSize: 13),
+      'Genre: ${movie.genre}',
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: GoogleFonts.montserrat(
+        color: Color(0xff8D8E96),
+        fontSize: 13,
+      ),
     );
   }
 

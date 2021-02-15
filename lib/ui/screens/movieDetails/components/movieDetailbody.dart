@@ -150,9 +150,9 @@ class MovieDetailShortDescription extends StatelessWidget {
               ],
             ),
             SizedBox(height: 5),
-            MovieShortDescription.genre(),
+            MovieShortDescription.genre(movie),
             SizedBox(height: 5),
-            MovieShortDescription.runTime(),
+            MovieShortDescription.runTime(movie),
             SizedBox(height: 5),
             starRating(movie),
           ],
@@ -186,4 +186,3 @@ class MovieDetailShortDescription extends StatelessWidget {
     );
   }
 }
-

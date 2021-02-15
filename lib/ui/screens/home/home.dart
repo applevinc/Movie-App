@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/ui/components/seachAppBar.dart';
-import 'package:movie_app/ui/screens/home/components/tabHeaderText.dart';
 import 'package:movie_app/ui/screens/home/layouts/buildPopularMovies.dart';
 import 'package:movie_app/ui/screens/home/layouts/buildUpcomingMovies.dart';
 import 'package:movie_app/ui/settings/theme/colorTheme.dart';
@@ -12,7 +12,7 @@ class NewHomePage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: _buildTopRatedSearchAppBar(),
+        appBar: _buildHomeSearchAppBar(context),
         body: Padding(
           padding: const EdgeInsets.only(top: 10),
           child: TabBarView(
@@ -26,7 +26,7 @@ class NewHomePage extends StatelessWidget {
     );
   }
 
-  PreferredSize _buildTopRatedSearchAppBar() {
+  PreferredSize _buildHomeSearchAppBar(BuildContext context) {
     return PreferredSize(
       preferredSize: Size.fromHeight(15.0.h),
       child: HomeSearchAppBar(
@@ -34,9 +34,14 @@ class NewHomePage extends StatelessWidget {
         bottom: TabBar(
           indicatorColor: kYellow,
           tabs: [
-            TabHeaderText(title: 'Now Popular'),
-            TabHeaderText(title: 'Upcoming'),
+            Tab(text: 'Now Popular'),
+            Tab(text: 'Upcoming'),
           ],
+          labelStyle: GoogleFonts.montserrat(
+            color: Color(0xffC1C1C6),
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

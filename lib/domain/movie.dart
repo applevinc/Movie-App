@@ -3,7 +3,7 @@ class Movie {
   final String title;
   final String poster;
   final String description;
-  final DateTime releaseDate;
+  final String releaseDate;
 
   final List genre;
   final double rating;
@@ -24,7 +24,7 @@ class Movie {
       title: json['title'],
       poster: json["poster_path"],
       description: json["overview"],
-      releaseDate: DateTime.parse(json["release_date"]),
+      releaseDate: json["release_date"],
 
       /*
       List.from() constructor creates a new list
