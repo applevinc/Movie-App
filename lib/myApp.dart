@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
                 scaffoldBackgroundColor: Colors.black,
               ),
               debugShowCheckedModeBanner: false,
-              home: NewHomePage(),
+              home: HomePage(),
             );
           },
         ),

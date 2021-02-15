@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/ui/components/backAppBar.dart';
+import 'package:movie_app/ui/screens/movieDetails/layouts/movieDetailbody.dart';
 
-import 'package:movie_app/ui/screens/movieDetails/components/movieDetailbody.dart';
 import 'package:movie_app/viewModels/movieViewModel.dart';
 import 'package:sizer/sizer.dart';
 

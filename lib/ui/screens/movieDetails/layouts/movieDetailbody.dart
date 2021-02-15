@@ -140,19 +140,19 @@ class MovieDetailShortDescription extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MovieShortDescription.movieTitle(movie),
+            MovieTitle(movie: movie),
             SizedBox(height: 5),
             Row(
               children: [
-                MovieShortDescription.movieQuality('3D', Colors.blue),
+                MovieQuality(text: '3D', color: Colors.blue),
                 SizedBox(width: 5),
-                MovieShortDescription.movieQuality('IMAX', kYellow),
+                MovieQuality(text: 'IMAX', color: kYellow),
               ],
             ),
             SizedBox(height: 5),
-            MovieShortDescription.genre(movie),
+            MovieGenre(movie: movie),
             SizedBox(height: 5),
-            MovieShortDescription.runTime(movie),
+            MovieRuntime(movie: movie),
             SizedBox(height: 5),
             starRating(movie),
           ],

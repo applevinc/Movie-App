@@ -82,29 +82,39 @@ class MovieShortDescription extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                movieTitle(movie),
-                _movieRating(movie),
+                MovieTitle(movie: movie),
+                MovieRating(movie: movie),
               ],
             ),
             SizedBox(height: 5),
             Row(
               children: [
-                movieQuality('3D', Colors.blue),
+                MovieQuality(text: '3D', color: Colors.blue),
                 SizedBox(width: 5),
-                movieQuality('IMAX', kYellow),
+                MovieQuality(text: 'IMAX', color: kYellow),
               ],
             ),
             SizedBox(height: 5),
-            genre(movie),
+            MovieGenre(movie: movie),
             SizedBox(height: 5),
-            runTime(movie),
+            MovieRuntime(movie: movie),
           ],
         ),
       ),
     );
   }
+}
 
-  static Text runTime(MovieViewModel movie) {
+class MovieRuntime extends StatelessWidget {
+  const MovieRuntime({
+    Key key,
+    this.movie,
+  }) : super(key: key);
+
+  final MovieViewModel movie;
+
+  @override
+  Widget build(BuildContext context) {
     return Text(
       'Release Date: ${movie.releasedDate}',
       style: GoogleFonts.montserrat(
@@ -113,8 +123,18 @@ class MovieShortDescription extends StatelessWidget {
       ),
     );
   }
+}
 
-  static Text genre(MovieViewModel movie) {
+class MovieGenre extends StatelessWidget {
+  const MovieGenre({
+    Key key,
+    this.movie,
+  }) : super(key: key);
+
+  final MovieViewModel movie;
+
+  @override
+  Widget build(BuildContext context) {
     return Text(
       'Genre: ${movie.genre}',
       maxLines: 1,
@@ -125,8 +145,20 @@ class MovieShortDescription extends StatelessWidget {
       ),
     );
   }
+}
 
-  static Container movieQuality(String text, Color color) {
+class MovieQuality extends StatelessWidget {
+  const MovieQuality({
+    Key key,
+    this.text,
+    this.color,
+  }) : super(key: key);
+
+  final String text;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
       decoration: BoxDecoration(
@@ -139,19 +171,18 @@ class MovieShortDescription extends StatelessWidget {
       ),
     );
   }
+}
 
-  Text _movieRating(MovieViewModel movie) {
-    return Text(
-      movie.rating.toString(),
-      style: GoogleFonts.montserrat(
-        color: const Color(0xffFFBB3B),
-        fontSize: 17,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
+class MovieTitle extends StatelessWidget {
+  const MovieTitle({
+    Key key,
+    this.movie,
+  }) : super(key: key);
 
-  static Flexible movieTitle(MovieViewModel movie) {
+  final MovieViewModel movie;
+
+  @override
+  Widget build(BuildContext context) {
     return Flexible(
       child: Text(
         movie.title,
@@ -162,6 +193,27 @@ class MovieShortDescription extends StatelessWidget {
           fontSize: 17,
           fontWeight: FontWeight.bold,
         ),
+      ),
+    );
+  }
+}
+
+class MovieRating extends StatelessWidget {
+  const MovieRating({
+    Key key,
+    this.movie,
+  }) : super(key: key);
+
+  final MovieViewModel movie;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      movie.rating.toString(),
+      style: GoogleFonts.montserrat(
+        color: const Color(0xffFFBB3B),
+        fontSize: 17,
+        fontWeight: FontWeight.bold,
       ),
     );
   }

@@ -5,16 +5,16 @@ import 'package:movie_app/ui/settings/theme/colorTheme.dart';
 import 'package:movie_app/viewModels/movieListViewModel.dart';
 import 'package:provider/provider.dart';
 
-class BuildPopularMovies extends StatefulWidget {
+class BuildUpcomingMovies extends StatefulWidget {
   @override
-  _BuildPopularMoviesState createState() => _BuildPopularMoviesState();
+  _BuildUpcomingMoviesState createState() => _BuildUpcomingMoviesState();
 }
 
-class _BuildPopularMoviesState extends State<BuildPopularMovies> {
-  @override
-  void initState() {
+class _BuildUpcomingMoviesState extends State<BuildUpcomingMovies> {
+
+void initState() {
     super.initState();
-    Provider.of<MovieListViewModel>(context, listen: false).popularMovies();
+    Provider.of<MovieListViewModel>(context, listen: false).upcomingMovies();
   }
 
   @override
@@ -22,7 +22,7 @@ class _BuildPopularMoviesState extends State<BuildPopularMovies> {
     var movies = Provider.of<MovieListViewModel>(context);
 
     return FutureBuilder<List<Movie>>(
-      future: movies.popularMovies(),
+      future: movies.upcomingMovies(),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.hasData) {
           return _buildMovieListView(movies);
@@ -44,9 +44,9 @@ class _BuildPopularMoviesState extends State<BuildPopularMovies> {
 
   ListView _buildMovieListView(MovieListViewModel movies) {
     return ListView.builder(
-      itemCount: movies.popularMoviesList.length,
+      itemCount: movies.upcomingMoviesList.length,
       itemBuilder: (context, index) {
-        var movie = movies.popularMoviesList[index];
+        var movie = movies.upcomingMoviesList[index];
         return MovieContainer(movie: movie);
       },
     );
