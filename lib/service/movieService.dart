@@ -8,9 +8,13 @@ List<Genre> tmbdGenreList = [];
 class MovieService {
   static const String _apiKey = '925dbcf05f7687e206cd5743fac7bdff';
 
-  static Future<List<Movie>> fetchPopularMovies() async {
-    const String _url = 'https://api.themoviedb.org/3/movie/popular?api_key=$_apiKey&language=en-US&page=1';
+  static Future<List<Movie>> fetchPopularMovies(int page) async {
+    String _url = 'https://api.themoviedb.org/3/movie/popular?api_key=$_apiKey&language=en-US&page=$page';
     final response = await http.get(_url);
+
+    print('calling api');
+    print('bad code');
+    print('stressed up');
 
     if (response.statusCode == 200) {
       final result = response.body;
@@ -27,8 +31,8 @@ class MovieService {
     }
   }
 
-  static Future<List<Movie>> fetchUpcomingMovies() async {
-    const String _url = 'https://api.themoviedb.org/3/movie/upcoming?api_key=$_apiKey&language=en-US&page=1';
+  static Future<List<Movie>> fetchUpcomingMovies(int page) async {
+    String _url = 'https://api.themoviedb.org/3/movie/upcoming?api_key=$_apiKey&language=en-US&page=$page';
     final response = await http.get(_url);
 
     if (response.statusCode == 200) {

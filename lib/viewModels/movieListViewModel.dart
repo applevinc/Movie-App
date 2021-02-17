@@ -3,6 +3,8 @@ import 'package:movie_app/domain/movie.dart';
 import 'package:movie_app/service/movieService.dart';
 import 'package:movie_app/viewModels/movieViewModel.dart';
 
+import 'dart:math';
+
 enum LoadingStatus {
   completed,
   searching,
@@ -16,7 +18,12 @@ class MovieListViewModel with ChangeNotifier {
   List<MovieViewModel> upcomingMoviesList = List<MovieViewModel>();
 
   Future<List<Movie>> popularMovies() async {
-    List<Movie> movies = await MovieService.fetchPopularMovies();
+    //Generate random page number
+    Random random = new Random();
+    final int randomNumber = random.nextInt(100);
+
+    //fetch movies from the page
+    List<Movie> movies = await MovieService.fetchPopularMovies(randomNumber);
     loadingStatus = LoadingStatus.searching;
     notifyListeners();
 
@@ -33,7 +40,12 @@ class MovieListViewModel with ChangeNotifier {
   }
 
   Future<List<Movie>> upcomingMovies() async {
-    List<Movie> movies = await MovieService.fetchUpcomingMovies();
+    //Generate random page number
+    Random random = new Random();
+    int randomNumber = random.nextInt(10);
+
+    //fetch movies from the page
+    List<Movie> movies = await MovieService.fetchUpcomingMovies(randomNumber);
     loadingStatus = LoadingStatus.searching;
     notifyListeners();
 

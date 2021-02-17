@@ -150,7 +150,7 @@ class MovieDetailShortDescription extends StatelessWidget {
               ],
             ),
             SizedBox(height: 5),
-            MovieGenre(movie: movie),
+            _MovieGenre(movie: movie),
             SizedBox(height: 5),
             MovieRuntime(movie: movie),
             SizedBox(height: 5),
@@ -183,6 +183,28 @@ class MovieDetailShortDescription extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _MovieGenre extends StatelessWidget {
+  const _MovieGenre({
+    Key key,
+    this.movie,
+  }) : super(key: key);
+
+  final MovieViewModel movie;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'Genre: ${movie.genre}',
+      //maxLines: 1,
+      //overflow: TextOverflow.ellipsis,
+      style: GoogleFonts.montserrat(
+        color: Color(0xff8D8E96),
+        fontSize: 13,
+      ),
     );
   }
 }

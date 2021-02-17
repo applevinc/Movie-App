@@ -11,37 +11,52 @@ class BuildPopularMovies extends StatefulWidget {
 }
 
 class _BuildPopularMoviesState extends State<BuildPopularMovies> {
+  var _buildMovies;
+
   void initState() {
     super.initState();
-    Provider.of<MovieListViewModel>(context, listen: false).popularMovies();
+    _buildMovies = Provider.of<MovieListViewModel>(context, listen: false).popularMovies();
   }
 
   @override
   Widget build(BuildContext context) {
     var movies = Provider.of<MovieListViewModel>(context);
 
-    return FutureBuilder<List<Movie>>(
-      future: movies.popularMovies(),
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (snapshot.hasData) {
-          return _buildMovieListView(movies);
-        } else if (snapshot.hasError) {
-          return Center(
-            child: Text(
-              "${snapshot.error}",
-              style: TextStyle(color: Colors.white),
-            ),
-          );
-        }
-
-        return Center(
-          child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(kYellow)),
-        );
+    return RefreshIndicator(
+      onRefresh: () async {
+        await Future.delayed(Duration(seconds: 1));
+        movies.popularMovies();
       },
+      child: FutureBuilder<List<Movie>>(
+        future: _buildMovies,
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.hasData) {
+            return _BuildPopularMoviesList(movies: movies);
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text(
+                "${snapshot.error}",
+                style: TextStyle(color: Colors.white),
+              ),
+            );
+          }
+
+          return Center(
+            child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(kYellow)),
+          );
+        },
+      ),
     );
   }
+}
 
-  ListView _buildMovieListView(MovieListViewModel movies) {
+class _BuildPopularMoviesList extends StatelessWidget {
+  const _BuildPopularMoviesList({Key key, this.movies}) : super(key: key);
+
+  final MovieListViewModel movies;
+
+  @override
+  Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: movies.popularMoviesList.length,
       itemBuilder: (context, index) {

@@ -26,21 +26,21 @@ class HomeSearchAppBar extends StatelessWidget {
           fontSize: 27,
         ),
       ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(right: 20),
-          child: IconButton(
-            icon: Icon(
-              Icons.search,
-              color: Colors.white,
-              size: 30,
-            ),
-            onPressed: () {
-              // show search page
-            },
-          ),
-        )
-      ],
+      // actions: [
+      //   Padding(
+      //     padding: const EdgeInsets.only(right: 20),
+      //     child: IconButton(
+      //       icon: Icon(
+      //         Icons.search,
+      //         color: Colors.white,
+      //         size: 30,
+      //       ),
+      //       onPressed: () {
+      //         // show search page
+      //       },
+      //     ),
+      //   )
+      // ],
       bottom: bottom,
     );
   }

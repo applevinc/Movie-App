@@ -11,40 +11,54 @@ class BuildUpcomingMovies extends StatefulWidget {
 }
 
 class _BuildUpcomingMoviesState extends State<BuildUpcomingMovies> {
+  var _buildMovies;
 
-void initState() {
+  void initState() {
     super.initState();
-    Provider.of<MovieListViewModel>(context, listen: false).upcomingMovies();
+    _buildMovies = Provider.of<MovieListViewModel>(context, listen: false).upcomingMovies();
   }
 
   @override
   Widget build(BuildContext context) {
     var movies = Provider.of<MovieListViewModel>(context);
 
-    return FutureBuilder<List<Movie>>(
-      future: movies.upcomingMovies(),
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (snapshot.hasData) {
-          return _buildMovieListView(movies);
-        } else if (snapshot.hasError) {
-          return Center(
-            child: Text(
-              "${snapshot.error}",
-              style: TextStyle(color: Colors.white),
-            ),
-          );
-        }
-
-        return Center(
-          child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(kYellow)),
-        );
+    return RefreshIndicator(
+      onRefresh: () async {
+        await Future.delayed(Duration(seconds: 1));
+        Provider.of<MovieListViewModel>(context, listen: false).upcomingMovies();
       },
+      child: FutureBuilder<List<Movie>>(
+        future: _buildMovies,
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.hasData) {
+            return _BuildUpComingMoviesList(movies: movies);
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text(
+                "${snapshot.error}",
+                style: TextStyle(color: Colors.white),
+              ),
+            );
+          }
+
+          return Center(
+            child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(kYellow)),
+          );
+        },
+      ),
     );
   }
+}
 
-  ListView _buildMovieListView(MovieListViewModel movies) {
+class _BuildUpComingMoviesList extends StatelessWidget {
+  const _BuildUpComingMoviesList({Key key, this.movies}) : super(key: key);
+
+  final MovieListViewModel movies;
+
+  @override
+  Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: movies.upcomingMoviesList.length,
+      itemCount: movies.popularMoviesList.length,
       itemBuilder: (context, index) {
         var movie = movies.upcomingMoviesList[index];
         return MovieContainer(movie: movie);

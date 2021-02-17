@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/ui/screens/home/home.dart';
+import 'package:movie_app/ui/settings/theme/colorTheme.dart';
 import 'package:movie_app/viewModels/movieListViewModel.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
               title: 'Photoplay',
               theme: ThemeData.dark().copyWith(
                 scaffoldBackgroundColor: Colors.black,
+                accentColor: kYellow,
               ),
               debugShowCheckedModeBanner: false,
               home: HomePage(),
