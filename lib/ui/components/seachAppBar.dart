@@ -4,12 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 class HomeSearchAppBar extends StatelessWidget {
   const HomeSearchAppBar({
     Key key,
-    this.onBackTap,
+    this.onSearchIconTap,
     this.title,
     this.bottom,
   }) : super(key: key);
 
-  final Function onBackTap;
+  final Function onSearchIconTap;
   final String title;
   final TabBar bottom;
 
