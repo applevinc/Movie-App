@@ -23,7 +23,7 @@ class MovieDetails extends StatelessWidget {
             ),
             child: IntrinsicHeight(
               child: Container(
-                width: 100.0.w,
+                width: SizerUtil.orientation == Orientation.portrait ? 100.0.w : 100.0.h,
                 decoration: moviePosterBackground(),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

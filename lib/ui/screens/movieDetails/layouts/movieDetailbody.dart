@@ -37,7 +37,7 @@ class MovieDetailBody extends StatelessWidget {
                 overflow: Overflow.visible,
                 children: [
                   MoviePoster(movie: movie),
-                  MovieDetailShortDescription(movie: movie),
+                  _MovieDetailShortDescription(movie: movie),
                 ],
               ),
             ),
@@ -121,8 +121,8 @@ class MovieSynopsis extends StatelessWidget {
   }
 }
 
-class MovieDetailShortDescription extends StatelessWidget {
-  const MovieDetailShortDescription({
+class _MovieDetailShortDescription extends StatelessWidget {
+  const _MovieDetailShortDescription({
     Key key,
     this.movie,
   }) : super(key: key);
@@ -132,7 +132,7 @@ class MovieDetailShortDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      right: 10.0.w,
+      left: SizerUtil.orientation == Orientation.portrait ? 40.0.w : 25.0.h,
       top: 20.0,
       child: Container(
         height: 30.0.h,

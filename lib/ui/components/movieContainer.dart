@@ -25,7 +25,7 @@ class MovieContainer extends StatelessWidget {
           children: [
             MovieContainerGreyBox(),
             MoviePoster(movie: movie),
-            MovieShortDescription(movie: movie),
+            _MovieShortDescription(movie: movie),
           ],
         ),
       ),
@@ -50,8 +50,8 @@ class MovieContainerGreyBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 25.0.h,
-      width: SizerUtil.orientation == Orientation.portrait ? 100.0.w : 70.0.h,
+      height: SizerUtil.orientation == Orientation.portrait ? 25.0.h : 70.0.w,
+      width: 100.0.w,
       decoration: BoxDecoration(
         color: Colors.grey[850],
         borderRadius: BorderRadius.circular(20),
@@ -60,8 +60,8 @@ class MovieContainerGreyBox extends StatelessWidget {
   }
 }
 
-class MovieShortDescription extends StatelessWidget {
-  const MovieShortDescription({
+class _MovieShortDescription extends StatelessWidget {
+  const _MovieShortDescription({
     Key key,
     this.movie,
   }) : super(key: key);
@@ -72,7 +72,7 @@ class MovieShortDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
       right: 20.0,
-      top: 5.0.h,
+      top: SizerUtil.orientation == Orientation.portrait ? 5.0.h : 40.0.w,
       child: Container(
         width: SizerUtil.orientation == Orientation.portrait ? 50.0.w : 40.0.h,
         child: Column(

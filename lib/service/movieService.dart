@@ -12,10 +12,6 @@ class MovieService {
     String _url = 'https://api.themoviedb.org/3/movie/popular?api_key=$_apiKey&language=en-US&page=$page';
     final response = await http.get(_url);
 
-    print('calling api');
-    print('bad code');
-    print('stressed up');
-
     if (response.statusCode == 200) {
       final result = response.body;
       final data = jsonDecode(result)['results'];

@@ -4,6 +4,7 @@ import 'package:movie_app/ui/components/movieContainer.dart';
 import 'package:movie_app/ui/settings/theme/colorTheme.dart';
 import 'package:movie_app/viewModels/movieListViewModel.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 class BuildPopularMovies extends StatefulWidget {
   @override
@@ -31,7 +32,9 @@ class _BuildPopularMoviesState extends State<BuildPopularMovies> {
         future: _buildMovies,
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
-            return _BuildPopularMoviesList(movies: movies);
+            return SizerUtil.orientation == Orientation.portrait
+                ? _BuildPopularMoviesListView(movies: movies)
+                : _BuildPopularMoviesGridView(movies: movies);
           } else if (snapshot.hasError) {
             return Center(
               child: Text(
@@ -50,8 +53,8 @@ class _BuildPopularMoviesState extends State<BuildPopularMovies> {
   }
 }
 
-class _BuildPopularMoviesList extends StatelessWidget {
-  const _BuildPopularMoviesList({Key key, this.movies}) : super(key: key);
+class _BuildPopularMoviesListView extends StatelessWidget {
+  const _BuildPopularMoviesListView({Key key, this.movies}) : super(key: key);
 
   final MovieListViewModel movies;
 
@@ -59,6 +62,28 @@ class _BuildPopularMoviesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: movies.popularMoviesList.length,
+      itemBuilder: (context, index) {
+        var movie = movies.popularMoviesList[index];
+        return MovieContainer(movie: movie);
+      },
+    );
+  }
+}
+
+class _BuildPopularMoviesGridView extends StatelessWidget {
+  const _BuildPopularMoviesGridView({Key key, this.movies}) : super(key: key);
+
+  final MovieListViewModel movies;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      itemCount: movies.popularMoviesList.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        //crossAxisSpacing: 4.0,
+        //mainAxisSpacing: 4.0,
+      ),
       itemBuilder: (context, index) {
         var movie = movies.popularMoviesList[index];
         return MovieContainer(movie: movie);
