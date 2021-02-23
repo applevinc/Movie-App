@@ -1,5 +1,7 @@
-import 'package:movie_app/domain/movie.dart';
-import 'package:movie_app/service/movieService.dart';
+import 'package:movie_app/domain/entities/genre.dart';
+import 'package:movie_app/domain/entities/movie.dart';
+
+List<Genre> tmbdGenreList = [];
 
 class MovieViewModel {
   Movie _movie;
@@ -18,18 +20,17 @@ class MovieViewModel {
 
   String getMovieGenre() {
     var movieGenreIds = _movie.genre;
-
-    List genreList = [];
+    List movieGenreList = [];
 
     for (int id in movieGenreIds) {
       for (var genreItem in tmbdGenreList) {
         if (id == genreItem.id) {
-          genreList.add(genreItem.name);
+          movieGenreList.add(genreItem.name);
         }
       }
     }
 
-    String genre = genreList.join(', ');
+    String genre = movieGenreList.join(', ');
 
     return genre;
   }

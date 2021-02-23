@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/domain/movie.dart';
+import 'package:movie_app/domain/entities/movie.dart';
 import 'package:movie_app/ui/components/movieContainer.dart';
 import 'package:movie_app/ui/settings/theme/colorTheme.dart';
-import 'package:movie_app/viewModels/movieListViewModel.dart';
+import 'package:movie_app/viewModels/upcomingMoviesViewModel.dart';
 import 'package:provider/provider.dart';
 
 class BuildUpcomingMovies extends StatefulWidget {
@@ -15,23 +15,23 @@ class _BuildUpcomingMoviesState extends State<BuildUpcomingMovies> {
 
   void initState() {
     super.initState();
-    _buildMovies = Provider.of<MovieListViewModel>(context, listen: false).upcomingMovies();
+    _buildMovies = Provider.of<UpcomingMoviesViewModel>(context, listen: false).getUpcomingMovies();
   }
 
   @override
   Widget build(BuildContext context) {
-    var movies = Provider.of<MovieListViewModel>(context);
+    var movies = Provider.of<UpcomingMoviesViewModel>(context);
 
     return RefreshIndicator(
       onRefresh: () async {
         await Future.delayed(Duration(seconds: 1));
-        Provider.of<MovieListViewModel>(context, listen: false).upcomingMovies();
+        movies.getUpcomingMovies();
       },
       child: FutureBuilder<List<Movie>>(
         future: _buildMovies,
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
-            return _BuildUpComingMoviesList(movies: movies);
+            return _BuildUpComingMoviesList(moviesProvider: movies);
           } else if (snapshot.hasError) {
             return Center(
               child: Text(
@@ -42,7 +42,9 @@ class _BuildUpcomingMoviesState extends State<BuildUpcomingMovies> {
           }
 
           return Center(
-            child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(kYellow)),
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(kYellow),
+            ),
           );
         },
       ),
@@ -51,16 +53,16 @@ class _BuildUpcomingMoviesState extends State<BuildUpcomingMovies> {
 }
 
 class _BuildUpComingMoviesList extends StatelessWidget {
-  const _BuildUpComingMoviesList({Key key, this.movies}) : super(key: key);
+  const _BuildUpComingMoviesList({Key key, this.moviesProvider}) : super(key: key);
 
-  final MovieListViewModel movies;
+  final UpcomingMoviesViewModel moviesProvider;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: movies.popularMoviesList.length,
+      itemCount: moviesProvider.movies.length,
       itemBuilder: (context, index) {
-        var movie = movies.upcomingMoviesList[index];
+        var movie = moviesProvider.movies[index];
         return MovieContainer(movie: movie);
       },
     );

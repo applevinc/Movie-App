@@ -1,11 +1,11 @@
+
 class Movie {
   final int id;
   final String title;
   final String poster;
   final String description;
   final String releaseDate;
-
-  final List genre;
+  final List<int> genre;
   final double rating;
 
   Movie({

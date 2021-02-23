@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/dataSource/api.dart';
 import 'package:movie_app/myApp.dart';
-import 'package:movie_app/service/movieService.dart';
 
 void main() {
-  runApp(MyApp());
+  Api api = Api();
+  api.fetchGenreList();
 
-  MovieService().fetchGenreList();
+  runApp(MyApp());
 }

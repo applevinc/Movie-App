@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_app/domain/entities/cast.dart';
 import 'package:movie_app/ui/components/movieContainer.dart';
 import 'package:movie_app/ui/settings/theme/colorTheme.dart';
 import 'package:movie_app/viewModels/movieViewModel.dart';
@@ -10,9 +11,11 @@ class MovieDetailBody extends StatelessWidget {
   const MovieDetailBody({
     Key key,
     this.movie,
+    this.casts,
   }) : super(key: key);
 
   final MovieViewModel movie;
+  final List<Cast> casts;
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +44,51 @@ class MovieDetailBody extends StatelessWidget {
                 ],
               ),
             ),
-            MovieSynopsis(movie: movie),
+            _MovieSynopsis(movie: movie),
+            //SizedBox(height: 25),
+            //MovieCast(casts: casts),
             SizedBox(height: 25),
             BuyNowButton(),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class MovieCast extends StatelessWidget {
+  const MovieCast({
+    Key key,
+    this.casts,
+  }) : super(key: key);
+
+  final List<Cast> casts;
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: Container(
+        height: 30.0.h,
+        //width: 100.0.w,
+        color: Colors.red,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: casts.length,
+          itemBuilder: (BuildContext context, index) {
+            return Column(
+              children: [
+                Image.network(
+                  casts[index].image,
+                  height: 20.0.h,
+                ),
+                Container(
+                  height: 20.0.h,
+                  color: kContainerColor,
+                  child: Text(casts[index].name),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
@@ -81,8 +125,8 @@ class BuyNowButton extends StatelessWidget {
   }
 }
 
-class MovieSynopsis extends StatelessWidget {
-  const MovieSynopsis({
+class _MovieSynopsis extends StatelessWidget {
+  const _MovieSynopsis({
     Key key,
     this.movie,
   }) : super(key: key);
@@ -132,11 +176,11 @@ class _MovieDetailShortDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      left: SizerUtil.orientation == Orientation.portrait ? 40.0.w : 25.0.h,
+      left: SizerUtil.orientation == Orientation.portrait ? 35.0.w : 25.0.h,
       top: 20.0,
       child: Container(
         height: 30.0.h,
-        width: 40.0.w,
+        width: 55.0.w,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

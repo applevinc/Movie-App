@@ -1,6 +1,6 @@
 class Genre {
-  final String name;
   final int id;
+  final String name;
 
   Genre({
     this.name,
