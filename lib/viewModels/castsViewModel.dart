@@ -10,6 +10,7 @@ class CastsViewModel extends ChangeNotifier {
 
   void getMovieCastsList(int movieId) async {
     _casts = await _api.fetchMovieCasts(movieId);
+
     notifyListeners();
   }
 }

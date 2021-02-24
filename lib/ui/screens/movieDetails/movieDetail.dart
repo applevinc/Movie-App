@@ -21,7 +21,6 @@ class _MovieDetailsState extends State<MovieDetails> {
   void initState() {
     super.initState();
     Provider.of<CastsViewModel>(context, listen: false).getMovieCastsList(widget.movie.id);
-    print(widget.movie.id);
   }
 
   @override
