@@ -4,7 +4,7 @@ import 'package:movie_app/domain/entities/cast.dart';
 
 class CastsViewModel extends ChangeNotifier {
   Api _api = Api();
-  List<Cast> _casts = [];
+  var _casts = List<Cast>();
 
   List<Cast> get casts => _casts;
 

@@ -4,6 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/domain/entities/cast.dart';
 import 'package:movie_app/ui/components/movieContainer.dart';
+import 'package:movie_app/ui/screens/trailer/trailer.dart';
 import 'package:movie_app/ui/settings/theme/colorTheme.dart';
 import 'package:movie_app/viewModels/movieViewModel.dart';
 import 'package:sizer/sizer.dart';
@@ -47,7 +48,7 @@ class MovieDetailBody extends StatelessWidget {
             ),
             _MovieSynopsis(movie: movie),
             SizedBox(height: 25),
-            _WatchTrailerButton(),
+            _WatchTrailerButton(movie: movie),
             MovieCast(casts: casts),
           ],
         ),
@@ -96,7 +97,7 @@ class MovieCast extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: kLightGrey,
+                          color: Colors.black,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Column(
@@ -129,7 +130,6 @@ class MovieCast extends StatelessWidget {
                               child: Container(
                                 width: 20.0.w,
                                 alignment: Alignment.center,
-                                //color: Colors.red,
                                 child: Text(
                                   casts[index].name,
                                   maxLines: 2,
@@ -155,7 +155,10 @@ class MovieCast extends StatelessWidget {
 class _WatchTrailerButton extends StatelessWidget {
   const _WatchTrailerButton({
     Key key,
+    this.movie,
   }) : super(key: key);
+
+  final MovieViewModel movie;
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +169,12 @@ class _WatchTrailerButton extends StatelessWidget {
         child: FlatButton(
           color: kYellow,
           onPressed: () {
-            // movie Urls page
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TrailerPage(movie: movie),
+              ),
+            );
           },
           child: Text(
             'Watch Trailer',
@@ -300,8 +308,6 @@ class _MovieGenre extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       'Genre: ${movie.genre}',
-      //maxLines: 1,
-      //overflow: TextOverflow.ellipsis,
       style: GoogleFonts.montserrat(
         color: Color(0xff8D8E96),
         fontSize: 13,

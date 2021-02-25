@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/domain/entities/movie.dart';
 import 'package:movie_app/ui/components/movieContainer.dart';
+import 'package:movie_app/ui/screens/home/layout/errorBody.dart';
 import 'package:movie_app/ui/settings/theme/colorTheme.dart';
 import 'package:movie_app/viewModels/popularMoviesViewModel.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,7 @@ class _BuildPopularMoviesState extends State<BuildPopularMovies> {
 
   void initState() {
     super.initState();
-    _buildMovies = Provider.of<PopularMoviesViewModel>(context, listen: false).getPopularMovies();
+    _buildMovies = context.read<PopularMoviesViewModel>().getPopularMovies();
   }
 
   @override
@@ -36,11 +37,13 @@ class _BuildPopularMoviesState extends State<BuildPopularMovies> {
                 ? _BuildPopularMoviesListView(moviesProvider: movies)
                 : _BuildPopularMoviesGridView(moviesProvider: movies);
           } else if (snapshot.hasError) {
-            return Center(
-              child: Text(
-                "${snapshot.error}",
-                style: TextStyle(color: Colors.white),
-              ),
+            return ErrorBody(
+              message: snapshot.error,
+              refresh: () {
+                setState(() {
+                  _buildMovies = context.read<PopularMoviesViewModel>().getPopularMovies();
+                });
+              },
             );
           }
 

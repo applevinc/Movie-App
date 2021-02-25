@@ -23,17 +23,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.0
-  flutter_rating_bar: ^3.2.0+1
-  provider: ^4.3.3
-  http: ^0.12.2
   cached_network_image: ^2.5.0
+  cupertino_icons: ^1.0.0
+  dio: ^3.0.10
+  flutter_rating_bar: ^3.2.0+1
   google_fonts: ^1.1.2
-  sizer: ^1.1.8
+  http: ^0.12.2
   intl: ^0.16.1
+  provider: ^4.3.3
+  sizer: ^1.1.8
+  youtube_player_flutter: ^7.0.0+7
+  url_launcher: ^5.7.10
 
 dev_dependencies:
-
   flutter_test:
     sdk: flutter
 

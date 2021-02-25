@@ -4,6 +4,7 @@ import 'package:movie_app/ui/settings/theme/colorTheme.dart';
 import 'package:movie_app/viewModels/castsViewModel.dart';
 import 'package:movie_app/viewModels/popularMoviesViewModel.dart';
 import 'package:movie_app/viewModels/upcomingMoviesViewModel.dart';
+import 'package:movie_app/viewModels/videoViewModel.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => PopularMoviesViewModel()),
         ChangeNotifierProvider(create: (context) => UpcomingMoviesViewModel()),
         ChangeNotifierProvider(create: (context) => CastsViewModel()),
+        ChangeNotifierProvider(create: (context) => VideoViewModel()),
       ],
       child: LayoutBuilder(
         builder: (context, constraints) => OrientationBuilder(

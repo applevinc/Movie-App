@@ -35,7 +35,6 @@ class HomePage extends StatelessWidget {
         title: 'MOVIES',
         bottom: TabBar(
           indicatorColor: kYellow,
-          
           tabs: [
             Tab(text: 'Now Popular'),
             Tab(text: 'Upcoming'),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/domain/entities/movie.dart';
 import 'package:movie_app/ui/components/movieContainer.dart';
+import 'package:movie_app/ui/screens/home/layout/errorBody.dart';
 import 'package:movie_app/ui/settings/theme/colorTheme.dart';
 import 'package:movie_app/viewModels/upcomingMoviesViewModel.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,7 @@ class _BuildUpcomingMoviesState extends State<BuildUpcomingMovies> {
 
   void initState() {
     super.initState();
-    _buildMovies = Provider.of<UpcomingMoviesViewModel>(context, listen: false).getUpcomingMovies();
+    _buildMovies = context.read<UpcomingMoviesViewModel>().getUpcomingMovies();
   }
 
   @override
@@ -33,11 +34,13 @@ class _BuildUpcomingMoviesState extends State<BuildUpcomingMovies> {
           if (snapshot.hasData) {
             return _BuildUpComingMoviesList(moviesProvider: movies);
           } else if (snapshot.hasError) {
-            return Center(
-              child: Text(
-                "${snapshot.error}",
-                style: TextStyle(color: Colors.white),
-              ),
+            return ErrorBody(
+              message: snapshot.error,
+              refresh: () {
+                setState(() {
+                  _buildMovies = _buildMovies = context.read<UpcomingMoviesViewModel>().getUpcomingMovies();
+                });
+              },
             );
           }
 

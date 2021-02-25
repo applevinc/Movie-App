@@ -2,8 +2,10 @@ import 'package:movie_app/domain/entities/cast.dart';
 import 'package:movie_app/domain/entities/genre.dart';
 import 'package:movie_app/domain/entities/movie.dart';
 import 'package:http/http.dart' as http;
+import 'package:movie_app/domain/entities/video.dart';
 import 'package:movie_app/services/exceptions/fetchExceptions.dart';
 import 'dart:convert';
+import 'package:dio/dio.dart';
 
 import 'package:movie_app/services/interfaces/Iapi.dart';
 import 'package:movie_app/viewModels/movieViewModel.dart';
@@ -82,6 +84,25 @@ class Api implements IApi {
       final results = List<Map<String, dynamic>>.from(data);
 
       tmbdGenreList = results.map((genre) => Genre.fromJson(genre)).toList(growable: false);
+    } else {
+      throw NetworkErrorException();
+    }
+  }
+
+  @override
+  Future<List<Video>> fetchMovieTrailerVideos(int movieId) async {
+    String _url = 'https://api.themoviedb.org/3/movie/$movieId/videos?api_key=$_apiKey&language=en-US';
+    final response = await http.get(_url);
+
+    if (response.statusCode == 200) {
+      final result = response.body;
+      final data = jsonDecode(result)['results'];
+
+      final results = List<Map<String, dynamic>>.from(data);
+
+      List<Video> trailers = results.map((video) => Video.fromJson(video)).toList(growable: false);
+
+      return trailers;
     } else {
       throw NetworkErrorException();
     }
