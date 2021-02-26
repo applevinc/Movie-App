@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:movie_app/domain/entities/video.dart';
 import 'package:movie_app/services/exceptions/fetchExceptions.dart';
 import 'dart:convert';
-import 'package:dio/dio.dart';
 
 import 'package:movie_app/services/interfaces/Iapi.dart';
 import 'package:movie_app/viewModels/movieViewModel.dart';

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_app/ui/components/seachAppBar.dart';
+import 'package:movie_app/ui/constants/color.dart';
 
 import 'package:movie_app/ui/screens/home/tabs/buildPopularMovies.dart';
 import 'package:movie_app/ui/screens/home/tabs/buildUpcomingMovies.dart';
-import 'package:movie_app/ui/settings/theme/colorTheme.dart';
+import 'package:movie_app/ui/widgets/seachAppBar.dart';
 
 import 'package:sizer/sizer.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/ui/settings/theme/colorTheme.dart';
+import 'package:movie_app/ui/constants/color.dart';
 import 'package:sizer/sizer.dart';
 
 class ErrorBody extends StatelessWidget {

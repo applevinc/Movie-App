@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_app/ui/constants/color.dart';
 import 'package:movie_app/ui/screens/movieDetails/movieDetail.dart';
-import 'package:movie_app/ui/settings/theme/colorTheme.dart';
 import 'package:movie_app/viewModels/movieViewModel.dart';
 import 'package:sizer/sizer.dart';
 
@@ -20,13 +20,15 @@ class MovieContainer extends StatelessWidget {
       padding: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
       child: GestureDetector(
         onTap: () => _showMovieDetails(context, movie),
-        child: Stack(
-          overflow: Overflow.visible,
-          children: [
-            MovieContainerGreyBox(),
-            MoviePoster(movie: movie),
-            _MovieShortDescription(movie: movie),
-          ],
+        child: MovieContainerGreyBox(
+          child: Stack(
+            overflow: Overflow.visible,
+            clipBehavior: Clip.none,
+            children: [
+              MoviePoster(movie: movie),
+              _MovieShortDescription(movie: movie),
+            ],
+          ),
         ),
       ),
     );
@@ -45,7 +47,10 @@ class MovieContainer extends StatelessWidget {
 class MovieContainerGreyBox extends StatelessWidget {
   const MovieContainerGreyBox({
     Key key,
+    this.child,
   }) : super(key: key);
+
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +61,7 @@ class MovieContainerGreyBox extends StatelessWidget {
         color: Colors.grey[850],
         borderRadius: BorderRadius.circular(20),
       ),
+      child: child,
     );
   }
 }

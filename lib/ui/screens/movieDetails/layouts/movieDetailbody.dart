@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/domain/entities/cast.dart';
-import 'package:movie_app/ui/components/movieContainer.dart';
+import 'package:movie_app/ui/constants/color.dart';
+import 'package:movie_app/ui/constants/text.dart';
 import 'package:movie_app/ui/screens/trailer/trailer.dart';
-import 'package:movie_app/ui/settings/theme/colorTheme.dart';
+import 'package:movie_app/ui/widgets/errorBody.dart';
+import 'package:movie_app/ui/widgets/movieContainer.dart';
+import 'package:movie_app/viewModels/castsViewModel.dart';
 import 'package:movie_app/viewModels/movieViewModel.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class MovieDetailBody extends StatelessWidget {
@@ -49,7 +53,7 @@ class MovieDetailBody extends StatelessWidget {
             _MovieSynopsis(movie: movie),
             SizedBox(height: 25),
             _WatchTrailerButton(movie: movie),
-            MovieCast(casts: casts),
+            MovieCast(movie: movie),
           ],
         ),
       ),
@@ -60,10 +64,10 @@ class MovieDetailBody extends StatelessWidget {
 class MovieCast extends StatelessWidget {
   const MovieCast({
     Key key,
-    this.casts,
+    this.movie,
   }) : super(key: key);
 
-  final List<Cast> casts;
+  final MovieViewModel movie;
 
   @override
   Widget build(BuildContext context) {
@@ -87,67 +91,149 @@ class MovieCast extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 5),
-              Flexible(
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  itemCount: casts.length,
-                  itemBuilder: (BuildContext context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            CachedNetworkImage(
-                              imageUrl: casts[index].image,
-                              height: 20.0.h,
-                              width: 22.0.w,
-                              imageBuilder: (context, imageProvider) => Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20),
-                                  ),
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                              placeholder: (context, url) => Center(
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-                                ),
-                              ),
-                              errorWidget: (context, url, error) => Icon(Icons.error),
-                            ),
-                            Expanded(
-                              child: Container(
-                                width: 20.0.w,
-                                alignment: Alignment.center,
-                                child: Text(
-                                  casts[index].name,
-                                  maxLines: 2,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+              _CastFutureBuilder(movie: movie),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _CastFutureBuilder extends StatefulWidget {
+  const _CastFutureBuilder({
+    Key key,
+    this.movie,
+  }) : super(key: key);
+
+  final MovieViewModel movie;
+
+  @override
+  __CastFutureBuilderState createState() => __CastFutureBuilderState();
+}
+
+class __CastFutureBuilderState extends State<_CastFutureBuilder> {
+  var _buildCasts;
+
+  @override
+  void initState() {
+    super.initState();
+    _buildCasts = context.read<CastsViewModel>().getMovieCastsList(widget.movie.id);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: FutureBuilder<List<Cast>>(
+        future: _buildCasts,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            var casts = context.watch<CastsViewModel>().casts;
+
+            return _buildCastHorizontalListView(casts);
+          } else if (snapshot.hasError) {
+            return ErrorBody(
+              message: snapshot.error,
+            );
+          }
+
+          return Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(kYellow),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  ListView _buildCastHorizontalListView(List<Cast> casts) {
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      padding: EdgeInsets.symmetric(horizontal: 15),
+      itemCount: casts.length,
+      itemBuilder: (BuildContext context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _CastImage(casts: casts, index: index),
+                _CastName(casts: casts, index: index),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _CastName extends StatelessWidget {
+  const _CastName({
+    Key key,
+    @required this.casts,
+    @required this.index,
+  }) : super(key: key);
+
+  final List<Cast> casts;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        width: 20.0.w,
+        alignment: Alignment.center,
+        child: Text(
+          casts[index].name,
+          maxLines: 2,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+}
+
+class _CastImage extends StatelessWidget {
+  const _CastImage({
+    Key key,
+    @required this.casts,
+    @required this.index,
+  }) : super(key: key);
+
+  final List<Cast> casts;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return CachedNetworkImage(
+      imageUrl: casts[index].image,
+      height: 20.0.h,
+      width: 22.0.w,
+      imageBuilder: (context, imageProvider) => Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          image: DecorationImage(
+            image: imageProvider,
+            fit: BoxFit.contain,
+          ),
+        ),
+      ),
+      placeholder: (context, url) => Center(
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+        ),
+      ),
+      errorWidget: (context, url, error) => Icon(Icons.error),
     );
   }
 }
@@ -178,10 +264,8 @@ class _WatchTrailerButton extends StatelessWidget {
           },
           child: Text(
             'Watch Trailer',
-            style: GoogleFonts.montserrat(
+            style: kSubHeadline.copyWith(
               color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -200,33 +284,31 @@ class _MovieSynopsis extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20, top: 20),
-          child: Text(
-            'Introduction',
-            style: GoogleFonts.montserrat(
-              color: Color(0xffC1C1C6),
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        SizedBox(height: 5),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Text(
-            movie.description,
-            style: GoogleFonts.montserrat(
-              color: Color(0xffC1C1C6),
-              fontSize: 15,
-            ),
-          ),
-        )
-      ],
-    );
+    return (movie.description != null)
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20, top: 20),
+                child: Text(
+                  'Introduction',
+                  style: kSubHeadline,
+                ),
+              ),
+              SizedBox(height: 5),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  movie.description,
+                  style: GoogleFonts.montserrat(
+                    color: Color(0xffC1C1C6),
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+            ],
+          )
+        : Container();
   }
 }
 

@@ -14,7 +14,13 @@ class VideoViewModel extends ChangeNotifier {
   }
 
   String getYouTubeId(int movieId) {
-    String id = _trailers[0].id;
+    String id;
+
+    if (_trailers.isEmpty) {
+      return null;
+    } else {
+      id = _trailers[0].id;
+    }
 
     return id;
   }

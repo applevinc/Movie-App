@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/ui/constants/color.dart';
 import 'package:movie_app/ui/screens/home/home.dart';
-import 'package:movie_app/ui/settings/theme/colorTheme.dart';
 import 'package:movie_app/viewModels/castsViewModel.dart';
 import 'package:movie_app/viewModels/popularMoviesViewModel.dart';
 import 'package:movie_app/viewModels/upcomingMoviesViewModel.dart';

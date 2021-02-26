@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/domain/entities/movie.dart';
-import 'package:movie_app/ui/components/movieContainer.dart';
-import 'package:movie_app/ui/screens/home/layout/errorBody.dart';
-import 'package:movie_app/ui/settings/theme/colorTheme.dart';
+
+import 'package:movie_app/ui/constants/color.dart';
+import 'package:movie_app/ui/widgets/errorBody.dart';
+import 'package:movie_app/ui/widgets/movieContainer.dart';
 import 'package:movie_app/viewModels/popularMoviesViewModel.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -86,8 +87,6 @@ class _BuildPopularMoviesGridView extends StatelessWidget {
       itemCount: moviesProvider.movies.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        //crossAxisSpacing: 4.0,
-        //mainAxisSpacing: 4.0,
       ),
       itemBuilder: (context, index) {
         var movie = moviesProvider.movies[index];

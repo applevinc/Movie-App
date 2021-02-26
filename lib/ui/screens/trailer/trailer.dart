@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/domain/entities/video.dart';
-import 'package:movie_app/ui/components/backAppBar.dart';
-import 'package:movie_app/ui/settings/theme/colorTheme.dart';
+import 'package:movie_app/ui/constants/color.dart';
+import 'package:movie_app/ui/constants/text.dart';
+import 'package:movie_app/ui/widgets/backAppBar.dart';
 import 'package:movie_app/viewModels/movieViewModel.dart';
 import 'package:movie_app/viewModels/videoViewModel.dart';
 import 'package:provider/provider.dart';
@@ -36,19 +37,30 @@ class _TrailerPageState extends State<TrailerPage> {
               var videoId = Provider.of<VideoViewModel>(context).getYouTubeId(widget.movie.id);
 
               YoutubePlayerController _playerController = YoutubePlayerController(
-                initialVideoId: videoId,
+                //initalVideoId cannot be null
+                initialVideoId: (videoId != null) ? videoId : 'No Video',
                 flags: YoutubePlayerFlags(
                   autoPlay: true,
-                  mute: true,
+                  mute: false,
                 ),
               );
 
-              return YoutubePlayer(
-                controller: _playerController,
-                showVideoProgressIndicator: true,
-              );
+              return (videoId != null)
+                  ? YoutubePlayer(
+                      controller: _playerController,
+                      showVideoProgressIndicator: true,
+                    )
+                  : Center(
+                      child: Text(
+                        'Trailer not available',
+                        style: kSubHeadline,
+                      ),
+                    );
             } else if (snapshot.hasError) {
-              return Text("${snapshot.error}");
+              return Text(
+                "${snapshot.error}",
+                style: kSubHeadline,
+              );
             }
 
             return Center(

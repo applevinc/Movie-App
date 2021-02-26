@@ -8,9 +8,10 @@ class CastsViewModel extends ChangeNotifier {
 
   List<Cast> get casts => _casts;
 
-  void getMovieCastsList(int movieId) async {
+  Future<List<Cast>> getMovieCastsList(int movieId) async {
     _casts = await _api.fetchMovieCasts(movieId);
 
     notifyListeners();
+    return _casts;
   }
 }

@@ -1,27 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/ui/components/backAppBar.dart';
 import 'package:movie_app/ui/screens/movieDetails/layouts/movieDetailbody.dart';
+import 'package:movie_app/ui/widgets/backAppBar.dart';
 import 'package:movie_app/viewModels/castsViewModel.dart';
 
 import 'package:movie_app/viewModels/movieViewModel.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-class MovieDetails extends StatefulWidget {
+class MovieDetails extends StatelessWidget {
   const MovieDetails({Key key, this.movie}) : super(key: key);
 
   final MovieViewModel movie;
-
-  @override
-  _MovieDetailsState createState() => _MovieDetailsState();
-}
-
-class _MovieDetailsState extends State<MovieDetails> {
-  @override
-  void initState() {
-    super.initState();
-    Provider.of<CastsViewModel>(context, listen: false).getMovieCastsList(widget.movie.id);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +32,9 @@ class _MovieDetailsState extends State<MovieDetails> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.3),
+                    SizedBox(height: 20.0.h),
                     MovieDetailBody(
-                      movie: widget.movie,
+                      movie: movie,
                       casts: casts,
                     ),
                   ],
@@ -66,7 +55,7 @@ class _MovieDetailsState extends State<MovieDetails> {
           Colors.black.withOpacity(0.6),
           BlendMode.darken,
         ),
-        image: NetworkImage(widget.movie.poster),
+        image: NetworkImage(movie.poster),
       ),
     );
   }
