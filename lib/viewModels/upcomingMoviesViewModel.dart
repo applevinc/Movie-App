@@ -8,6 +8,7 @@ import 'package:movie_app/viewModels/movieViewModel.dart';
 class UpcomingMoviesViewModel extends ChangeNotifier {
   Api _api = Api();
   List<MovieViewModel> _movies = [];
+  bool isRefreshing = false;
 
   List<MovieViewModel> get movies => _movies;
 
@@ -18,7 +19,17 @@ class UpcomingMoviesViewModel extends ChangeNotifier {
 
     List<Movie> fetchedMoviesList = await _api.fetchUpcomingMovies(pageNumber);
 
-    _movies = fetchedMoviesList.map((movie) => MovieViewModel(movie: movie)).toList();
+    if (isRefreshing == true) {
+      _movies = fetchedMoviesList.map((movie) => MovieViewModel(movie: movie)).toList();
+
+      // To toggle back isRefreshing state to initial so as
+      // not to always run this if statement block
+      isRefreshing = false;
+
+      notifyListeners();
+    }
+
+    _movies.addAll(fetchedMoviesList.map((movie) => MovieViewModel(movie: movie)).toList());
 
     notifyListeners();
     return fetchedMoviesList;
