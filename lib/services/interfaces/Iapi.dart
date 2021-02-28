@@ -8,4 +8,5 @@ abstract class IApi {
   void fetchGenreList();
   Future<List<Cast>> fetchMovieCasts(int movieId);
   Future<List<Video>> fetchMovieTrailerVideos(int movieId);
+  Future<List<Movie>> fetchMovieSearchResults(String query);
 }

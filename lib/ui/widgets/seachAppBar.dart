@@ -7,11 +7,13 @@ class HomeSearchAppBar extends StatelessWidget {
     this.onSearchIconTap,
     this.title,
     this.bottom,
+    this.onPressed,
   }) : super(key: key);
 
   final Function onSearchIconTap;
   final String title;
   final TabBar bottom;
+  final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -26,21 +28,19 @@ class HomeSearchAppBar extends StatelessWidget {
           fontSize: 27,
         ),
       ),
-      // actions: [
-      //   Padding(
-      //     padding: const EdgeInsets.only(right: 20),
-      //     child: IconButton(
-      //       icon: Icon(
-      //         Icons.search,
-      //         color: Colors.white,
-      //         size: 30,
-      //       ),
-      //       onPressed: () {
-      //         // show search page
-      //       },
-      //     ),
-      //   )
-      // ],
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 20),
+          child: IconButton(
+            icon: Icon(
+              Icons.search,
+              color: Colors.white,
+              size: 30,
+            ),
+            onPressed: onPressed,
+          ),
+        )
+      ],
       bottom: bottom,
     );
   }

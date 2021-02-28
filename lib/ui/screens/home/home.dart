@@ -4,6 +4,7 @@ import 'package:movie_app/ui/constants/color.dart';
 
 import 'package:movie_app/ui/screens/home/tabs/buildPopularMovies.dart';
 import 'package:movie_app/ui/screens/home/tabs/buildUpcomingMovies.dart';
+import 'package:movie_app/ui/screens/search/search.dart';
 import 'package:movie_app/ui/widgets/seachAppBar.dart';
 
 import 'package:sizer/sizer.dart';
@@ -33,6 +34,12 @@ class HomePage extends StatelessWidget {
       preferredSize: Size.fromHeight(15.0.h),
       child: HomeSearchAppBar(
         title: 'MOVIES',
+        onPressed: () {
+          showSearch(
+            context: context,
+            delegate: MovieSearch(),
+          );
+        },
         bottom: TabBar(
           indicatorColor: kYellow,
           tabs: [

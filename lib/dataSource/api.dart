@@ -106,4 +106,24 @@ class Api implements IApi {
       throw NetworkErrorException();
     }
   }
+
+  @override
+  Future<List<Movie>> fetchMovieSearchResults(String query) async {
+    print('searching.....');
+    String _url = 'https://api.themoviedb.org/3/search/movie?api_key=$_apiKey&language=en-US&query=$query&page=1&include_adult=false';
+    final response = await http.get(_url);
+
+    if (response.statusCode == 200) {
+      final result = response.body;
+      final data = jsonDecode(result)['results'];
+
+      final results = List<Map<String, dynamic>>.from(data);
+
+      List<Movie> movies = results.map((movie) => Movie.fromJson(movie)).toList(growable: false);
+
+      return movies;
+    } else {
+      throw NetworkErrorException();
+    }
+  }
 }
