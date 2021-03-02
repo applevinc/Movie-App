@@ -3,11 +3,11 @@ import 'package:movie_app/domain/entities/genre.dart';
 import 'package:movie_app/domain/entities/movie.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_app/domain/entities/video.dart';
-import 'package:movie_app/services/exceptions/fetchExceptions.dart';
+import 'package:movie_app/services/exceptions/fetch.dart';
 import 'dart:convert';
 
 import 'package:movie_app/services/interfaces/Iapi.dart';
-import 'package:movie_app/viewModels/movieViewModel.dart';
+import 'package:movie_app/viewModels/movie_view_model.dart';
 
 class Api implements IApi {
   static const String _apiKey = '925dbcf05f7687e206cd5743fac7bdff';

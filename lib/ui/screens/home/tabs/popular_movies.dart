@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/domain/entities/movie.dart';
 import 'package:movie_app/ui/constants/color.dart';
-import 'package:movie_app/ui/widgets/errorBody.dart';
-import 'package:movie_app/ui/widgets/movieContainer.dart';
-import 'package:movie_app/viewModels/popularMoviesViewModel.dart';
+import 'package:movie_app/ui/widgets/error_body.dart';
+import 'package:movie_app/ui/widgets/movie_container.dart';
+import 'package:movie_app/viewModels/popular_movies_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 

@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/ui/constants/color.dart';
-import 'package:movie_app/ui/screens/movieDetails/movieDetail.dart';
-import 'package:movie_app/viewModels/movieViewModel.dart';
+import 'package:movie_app/ui/screens/movieDetails/movie_detail.dart';
+import 'package:movie_app/viewModels/movie_view_model.dart';
 import 'package:sizer/sizer.dart';
 
 class MovieContainer extends StatelessWidget {

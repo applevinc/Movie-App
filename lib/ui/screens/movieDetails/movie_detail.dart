@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/ui/screens/movieDetails/layouts/movieDetailbody.dart';
-import 'package:movie_app/ui/widgets/backAppBar.dart';
-import 'package:movie_app/viewModels/castsViewModel.dart';
+import 'package:movie_app/ui/screens/movieDetails/layouts/movie_detail_body.dart';
+import 'package:movie_app/ui/widgets/back_app_bar.dart';
+import 'package:movie_app/viewModels/casts_view_model.dart';
 
-import 'package:movie_app/viewModels/movieViewModel.dart';
+import 'package:movie_app/viewModels/movie_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 

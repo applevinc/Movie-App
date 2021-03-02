@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/ui/constants/color.dart';
 import 'package:movie_app/ui/constants/text.dart';
-import 'package:movie_app/ui/widgets/movieContainer.dart';
-import 'package:movie_app/viewModels/searchViewModel.dart';
+import 'package:movie_app/ui/widgets/movie_container.dart';
+import 'package:movie_app/viewModels/search_view_model.dart';
 
 class MovieSearch extends SearchDelegate {
   SearchViewModel _searchViewModel = SearchViewModel();

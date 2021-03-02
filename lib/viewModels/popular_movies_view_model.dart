@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
-import 'package:movie_app/dataSource/api.dart';
+import 'package:movie_app/data_source/api.dart';
 import 'package:movie_app/domain/entities/movie.dart';
-import 'package:movie_app/viewModels/movieViewModel.dart';
+import 'package:movie_app/viewModels/movie_view_model.dart';
 
 class PopularMoviesViewModel extends ChangeNotifier {
   Api _api = Api();

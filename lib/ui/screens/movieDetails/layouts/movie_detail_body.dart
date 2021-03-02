@@ -6,10 +6,10 @@ import 'package:movie_app/domain/entities/cast.dart';
 import 'package:movie_app/ui/constants/color.dart';
 import 'package:movie_app/ui/constants/text.dart';
 import 'package:movie_app/ui/screens/trailer/trailer.dart';
-import 'package:movie_app/ui/widgets/errorBody.dart';
-import 'package:movie_app/ui/widgets/movieContainer.dart';
-import 'package:movie_app/viewModels/castsViewModel.dart';
-import 'package:movie_app/viewModels/movieViewModel.dart';
+import 'package:movie_app/ui/widgets/error_body.dart';
+import 'package:movie_app/ui/widgets/movie_container.dart';
+import 'package:movie_app/viewModels/casts_view_model.dart';
+import 'package:movie_app/viewModels/movie_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 

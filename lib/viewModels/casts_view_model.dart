@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:movie_app/dataSource/api.dart';
+import 'package:movie_app/data_source/api.dart';
 import 'package:movie_app/domain/entities/cast.dart';
 
 class CastsViewModel extends ChangeNotifier {
