@@ -2,4 +2,4 @@
 
 A new Flutter project.
 
-![](assets/images/APP BANNER.jpg)
+![](assets/images/app_banner.jpg)
