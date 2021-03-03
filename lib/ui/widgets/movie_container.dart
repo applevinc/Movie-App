@@ -22,7 +22,7 @@ class MovieContainer extends StatelessWidget {
         onTap: () => _showMovieDetails(context, movie),
         child: MovieContainerGreyBox(
           child: Stack(
-            clipBehavior: Clip.none, 
+            clipBehavior: Clip.none,
             children: [
               MoviePoster(movie: movie),
               _MovieShortDescription(movie: movie),
@@ -124,7 +124,7 @@ class MovieRuntime extends StatelessWidget {
       'Release Date: ${movie.releasedDate}',
       style: GoogleFonts.montserrat(
         color: Color(0xff8D8E96),
-        fontSize: 13,
+        fontSize: 9.0.sp,
       ),
     );
   }
@@ -146,7 +146,7 @@ class MovieGenre extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       style: GoogleFonts.montserrat(
         color: Color(0xff8D8E96),
-        fontSize: 13,
+        fontSize: 9.0.sp,
       ),
     );
   }
@@ -172,7 +172,7 @@ class MovieQuality extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: GoogleFonts.montserrat(fontSize: 13),
+        style: GoogleFonts.montserrat(fontSize: 9.0.sp),
       ),
     );
   }
@@ -195,7 +195,7 @@ class MovieTitle extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         style: GoogleFonts.montserrat(
           color: Color(0xffC1C1C6),
-          fontSize: 17,
+          fontSize: 11.0.sp,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -217,7 +217,7 @@ class MovieRating extends StatelessWidget {
       movie.rating.toString(),
       style: GoogleFonts.montserrat(
         color: const Color(0xffFFBB3B),
-        fontSize: 17,
+        fontSize: 11.0.sp,
         fontWeight: FontWeight.bold,
       ),
     );

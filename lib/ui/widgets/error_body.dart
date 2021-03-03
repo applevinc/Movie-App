@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/ui/constants/color.dart';
+import 'package:movie_app/ui/constants/text.dart';
 import 'package:sizer/sizer.dart';
 
 class ErrorBody extends StatelessWidget {
@@ -33,7 +34,13 @@ class ErrorBody extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.all<Color>(kYellow),
                 ),
                 onPressed: refresh,
-                child: Text('Refresh'),
+                child: Text(
+                  'Refresh',
+                  style: kSubHeadline.copyWith(
+                    color: Colors.white,
+                    fontSize: 11.0.sp,
+                  ),
+                ),
               ),
             ),
           ],

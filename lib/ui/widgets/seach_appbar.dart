@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
 
 class HomeSearchAppBar extends StatelessWidget {
   const HomeSearchAppBar({
@@ -25,7 +26,7 @@ class HomeSearchAppBar extends StatelessWidget {
         title,
         style: GoogleFonts.rammettoOne(
           color: Colors.white,
-          fontSize: 27,
+          fontSize: 20.0.sp,
         ),
       ),
       actions: [

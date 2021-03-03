@@ -268,6 +268,7 @@ class _WatchTrailerButton extends StatelessWidget {
             'Watch Trailer',
             style: kSubHeadline.copyWith(
               color: Colors.white,
+              fontSize: 11.0.sp,
             ),
           ),
         ),
@@ -304,7 +305,7 @@ class _MovieSynopsis extends StatelessWidget {
                   movie.description,
                   style: GoogleFonts.montserrat(
                     color: Color(0xffC1C1C6),
-                    fontSize: 15,
+                    fontSize: 10.0.sp,
                   ),
                 ),
               ),

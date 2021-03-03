@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
           ],
           labelStyle: GoogleFonts.montserrat(
             color: Color(0xffC1C1C6),
-            fontSize: 20,
+            fontSize: 13.0.sp,
             fontWeight: FontWeight.bold,
           ),
         ),
