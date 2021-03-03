@@ -22,8 +22,7 @@ class MovieContainer extends StatelessWidget {
         onTap: () => _showMovieDetails(context, movie),
         child: MovieContainerGreyBox(
           child: Stack(
-            overflow: Overflow.visible,
-            clipBehavior: Clip.none,
+            clipBehavior: Clip.none, 
             children: [
               MoviePoster(movie: movie),
               _MovieShortDescription(movie: movie),

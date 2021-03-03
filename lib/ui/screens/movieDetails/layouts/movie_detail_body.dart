@@ -43,7 +43,7 @@ class MovieDetailBody extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               height: 150,
               child: Stack(
-                overflow: Overflow.visible,
+                clipBehavior: Clip.none,
                 children: [
                   MoviePoster(movie: movie),
                   _MovieDetailShortDescription(movie: movie),
@@ -252,8 +252,10 @@ class _WatchTrailerButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
-        child: FlatButton(
-          color: kYellow,
+        child: ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(kYellow),
+          ),
           onPressed: () {
             Navigator.push(
               context,

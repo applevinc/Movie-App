@@ -28,8 +28,10 @@ class ErrorBody extends StatelessWidget {
             SizedBox(height: 5),
             SizedBox(
               width: 100.0.w,
-              child: FlatButton(
-                color: kYellow,
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(kYellow),
+                ),
                 onPressed: refresh,
                 child: Text('Refresh'),
               ),

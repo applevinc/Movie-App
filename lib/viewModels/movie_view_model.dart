@@ -12,7 +12,7 @@ class MovieViewModel {
 
   int get id => _movie.id;
   String get title => _movie.title;
-  String get description => _movie.description;
+  String get description => (_movie.description != null) ? _movie.description : null;
   String get poster => 'https://image.tmdb.org/t/p/w500${_movie.poster}';
   double get rating => _movie.rating;
   String get genre => getMovieGenre();
