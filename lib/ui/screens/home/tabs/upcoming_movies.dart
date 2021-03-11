@@ -20,7 +20,8 @@ class _BuildUpcomingMoviesState extends State<BuildUpcomingMovies> {
     super.initState();
     _buildMovies = context.read<UpcomingMoviesViewModel>().getUpcomingMovies();
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
         //if we are at the bottom of the page
         context.read<UpcomingMoviesViewModel>().getUpcomingMovies();
       }
@@ -61,7 +62,9 @@ class _BuildUpcomingMoviesState extends State<BuildUpcomingMovies> {
               message: snapshot.error,
               refresh: () {
                 setState(() {
-                  _buildMovies = _buildMovies = context.read<UpcomingMoviesViewModel>().getUpcomingMovies();
+                  _buildMovies = _buildMovies = context
+                      .read<UpcomingMoviesViewModel>()
+                      .getUpcomingMovies();
                 });
               },
             );
@@ -97,7 +100,7 @@ class _BuildUpComingMoviesListView extends StatelessWidget {
         var movie = moviesProvider.movies[index];
 
         // show loading more indicator at last movie on current page
-        if (index == moviesProvider.movies.length - 1) { 
+        if (index == moviesProvider.movies.length - 1) {
           return Center(
             child: CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(kYellow),
@@ -133,7 +136,7 @@ class _BuildUpComingMoviesGridView extends StatelessWidget {
         var movie = moviesProvider.movies[index];
 
         // show loading more indicator at last movie on current page
-        if (index == moviesProvider.movies.length - 1) { 
+        if (index == moviesProvider.movies.length - 1) {
           return Center(
             child: CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(kYellow),

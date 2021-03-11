@@ -20,7 +20,9 @@ class PopularMoviesViewModel extends ChangeNotifier {
     List<Movie> fetchedMoviesList = await _api.fetchPopularMovies(pageNumber);
 
     if (isRefreshing == true) {
-      _movies = fetchedMoviesList.map((movie) => MovieViewModel(movie: movie)).toList();
+      _movies = fetchedMoviesList
+          .map((movie) => MovieViewModel(movie: movie))
+          .toList();
 
       // To toggle back isRefreshing state to initial so as
       // not to always run this if statement block
@@ -29,7 +31,9 @@ class PopularMoviesViewModel extends ChangeNotifier {
       notifyListeners();
     }
 
-    _movies.addAll(fetchedMoviesList.map((movie) => MovieViewModel(movie: movie)).toList());
+    _movies.addAll(fetchedMoviesList
+        .map((movie) => MovieViewModel(movie: movie))
+        .toList());
 
     notifyListeners();
     return fetchedMoviesList;
