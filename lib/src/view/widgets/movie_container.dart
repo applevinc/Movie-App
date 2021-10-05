@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/src/core/style/color.dart';
+import 'package:movie_app/src/domain/entities/movie.dart';
 import 'package:movie_app/src/view/screens/movieDetails/movie_detail.dart';
-import 'package:movie_app/src/viewModels/movie_view_model.dart';
 import 'package:sizer/sizer.dart';
 
 class MovieContainer extends StatelessWidget {
@@ -12,7 +12,7 @@ class MovieContainer extends StatelessWidget {
     this.movie,
   }) : super(key: key);
 
-  final MovieViewModel movie;
+  final MovieEntity movie;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class _MovieShortDescription extends StatelessWidget {
     this.movie,
   }) : super(key: key);
 
-  final MovieViewModel movie;
+  final MovieEntity movie;
 
   @override
   Widget build(BuildContext context) {
@@ -116,12 +116,12 @@ class MovieRuntime extends StatelessWidget {
     this.movie,
   }) : super(key: key);
 
-  final MovieViewModel movie;
+  final MovieEntity movie;
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Release Date: ${movie.releasedDate}',
+      'Release Date: ${movie.releaseDate}',
       style: GoogleFonts.montserrat(
         color: Color(0xff8D8E96),
         fontSize: 9.0.sp,
@@ -136,7 +136,7 @@ class MovieGenre extends StatelessWidget {
     this.movie,
   }) : super(key: key);
 
-  final MovieViewModel movie;
+  final MovieEntity movie;
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +184,7 @@ class MovieTitle extends StatelessWidget {
     this.movie,
   }) : super(key: key);
 
-  final MovieViewModel movie;
+  final MovieEntity movie;
 
   @override
   Widget build(BuildContext context) {
@@ -209,7 +209,7 @@ class MovieRating extends StatelessWidget {
     this.movie,
   }) : super(key: key);
 
-  final MovieViewModel movie;
+  final MovieEntity movie;
 
   @override
   Widget build(BuildContext context) {
@@ -230,7 +230,7 @@ class MoviePoster extends StatelessWidget {
     this.movie,
   }) : super(key: key);
 
-  final MovieViewModel movie;
+  final MovieEntity movie;
 
   @override
   Widget build(BuildContext context) {

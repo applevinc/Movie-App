@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/src/core/constants.dart';
 import 'package:movie_app/src/core/style/color.dart';
 import 'package:movie_app/src/view/widgets/movie_container.dart';
-import 'package:movie_app/src/viewModels/search_view_model.dart';
+import 'package:movie_app/src/view/screens/search/movie_search_results_controller.dart';
 
 class MovieSearch extends SearchDelegate {
-  SearchViewModel _searchViewModel = SearchViewModel();
+  final MovieSearchResultsController searchController;
+
+  MovieSearch(this.searchController);
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -28,7 +30,7 @@ class MovieSearch extends SearchDelegate {
 
           // To remove all search suggestions(movies)
           // in view model list.
-          _searchViewModel.clear();
+          searchController.clear();
         },
       ),
     ];
@@ -46,9 +48,9 @@ class MovieSearch extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     return FutureBuilder(
-      future: query.isEmpty ? null : _searchViewModel.getSearchResuts(query),
+      future: query.isEmpty ? null : searchController.getSearchResuts(query),
       builder: (context, snapshot) {
-        var movies = _searchViewModel.movies;
+        var movies = searchController.movies;
 
         if (snapshot.hasData) {
           return ListView.builder(
@@ -73,9 +75,9 @@ class MovieSearch extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     return FutureBuilder(
-      future: query.isEmpty ? null : _searchViewModel.getSearchResuts(query),
+      future: query.isEmpty ? null : searchController.getSearchResuts(query),
       builder: (context, snapshot) {
-        var movies = _searchViewModel.movies;
+        var movies = searchController.movies;
 
         if (query.isEmpty) {
           return Center(

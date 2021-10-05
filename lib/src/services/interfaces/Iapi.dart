@@ -1,12 +1,12 @@
 import 'package:movie_app/src/domain/entities/cast.dart';
 import 'package:movie_app/src/domain/entities/movie.dart';
-import 'package:movie_app/src/domain/entities/video.dart';
+import 'package:movie_app/src/domain/entities/trailer.dart';
 
 abstract class IApi {
-  Future<List<Movie>> fetchPopularMovies(int page);
-  Future<List<Movie>> fetchUpcomingMovies(int page);
+  Future<List<MovieEntity>> fetchPopularMovies(int page);
+  Future<List<MovieEntity>> fetchUpcomingMovies(int page);
   void fetchGenreList();
-  Future<List<Cast>> fetchMovieCasts(int movieId);
-  Future<List<Video>> fetchMovieTrailerVideos(int movieId);
-  Future<List<Movie>> fetchMovieSearchResults(String query);
+  Future<List<CastEntity>> fetchMovieCasts(int movieId);
+  Future<List<TrailerEntity>> fetchMovieTrailerVideos(int movieId);
+  Future<List<MovieEntity>> fetchMovieSearchResults(String query);
 }

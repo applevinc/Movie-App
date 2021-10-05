@@ -3,7 +3,7 @@ import 'package:movie_app/src/core/style/color.dart';
 import 'package:movie_app/src/domain/entities/movie.dart';
 import 'package:movie_app/src/view/widgets/error_body.dart';
 import 'package:movie_app/src/view/widgets/movie_container.dart';
-import 'package:movie_app/src/viewModels/upcoming_movies_view_model.dart';
+import 'package:movie_app/src/view/screens/home/controllers/upcoming_movies_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -18,19 +18,19 @@ class _BuildUpcomingMoviesState extends State<BuildUpcomingMovies> {
 
   void initState() {
     super.initState();
-    _buildMovies = context.read<UpcomingMoviesViewModel>().getUpcomingMovies();
+    _buildMovies = context.read<GetUpcomingMoviesController>().getUpcomingMovies();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         //if we are at the bottom of the page
-        context.read<UpcomingMoviesViewModel>().getUpcomingMovies();
+        context.read<GetUpcomingMoviesController>().getUpcomingMovies();
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    var movies = Provider.of<UpcomingMoviesViewModel>(context);
+    var movies = Provider.of<GetUpcomingMoviesController>(context);
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -44,7 +44,7 @@ class _BuildUpcomingMoviesState extends State<BuildUpcomingMovies> {
 
         movies.getUpcomingMovies();
       },
-      child: FutureBuilder<List<Movie>>(
+      child: FutureBuilder<List<MovieEntity>>(
         future: _buildMovies,
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
@@ -63,7 +63,7 @@ class _BuildUpcomingMoviesState extends State<BuildUpcomingMovies> {
               refresh: () {
                 setState(() {
                   _buildMovies = _buildMovies = context
-                      .read<UpcomingMoviesViewModel>()
+                      .read<GetUpcomingMoviesController>()
                       .getUpcomingMovies();
                 });
               },
@@ -88,7 +88,7 @@ class _BuildUpComingMoviesListView extends StatelessWidget {
     this.scrollController,
   }) : super(key: key);
 
-  final UpcomingMoviesViewModel moviesProvider;
+  final GetUpcomingMoviesController moviesProvider;
   final ScrollController scrollController;
 
   @override
@@ -121,7 +121,7 @@ class _BuildUpComingMoviesGridView extends StatelessWidget {
     this.scrollController,
   }) : super(key: key);
 
-  final UpcomingMoviesViewModel moviesProvider;
+  final GetUpcomingMoviesController moviesProvider;
   final ScrollController scrollController;
 
   @override

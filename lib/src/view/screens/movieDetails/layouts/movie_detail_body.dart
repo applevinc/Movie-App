@@ -5,11 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/src/core/constants.dart';
 import 'package:movie_app/src/core/style/color.dart';
 import 'package:movie_app/src/domain/entities/cast.dart';
+import 'package:movie_app/src/domain/entities/movie.dart';
 import 'package:movie_app/src/view/screens/trailer/trailer.dart';
 import 'package:movie_app/src/view/widgets/error_body.dart';
 import 'package:movie_app/src/view/widgets/movie_container.dart';
-import 'package:movie_app/src/viewModels/casts_view_model.dart';
-import 'package:movie_app/src/viewModels/movie_view_model.dart';
+import 'package:movie_app/src/view/screens/movieDetails/casts_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -20,8 +20,8 @@ class MovieDetailBody extends StatelessWidget {
     this.casts,
   }) : super(key: key);
 
-  final MovieViewModel movie;
-  final List<Cast> casts;
+  final MovieEntity movie;
+  final List<CastEntity> casts;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class MovieCast extends StatelessWidget {
     this.movie,
   }) : super(key: key);
 
-  final MovieViewModel movie;
+  final MovieEntity movie;
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +106,7 @@ class _CastFutureBuilder extends StatefulWidget {
     this.movie,
   }) : super(key: key);
 
-  final MovieViewModel movie;
+  final MovieEntity movie;
 
   @override
   __CastFutureBuilderState createState() => __CastFutureBuilderState();
@@ -118,17 +118,17 @@ class __CastFutureBuilderState extends State<_CastFutureBuilder> {
   @override
   void initState() {
     super.initState();
-    _buildCasts = context.read<CastsViewModel>().getMovieCastsList(widget.movie.id);
+    _buildCasts = context.read<CastController>().getMovieCastsList(widget.movie.id);
   }
 
   @override
   Widget build(BuildContext context) {
     return Flexible(
-      child: FutureBuilder<List<Cast>>(
+      child: FutureBuilder<List<CastEntity>>(
         future: _buildCasts,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            var casts = context.watch<CastsViewModel>().casts;
+            var casts = context.watch<CastController>().casts;
 
             return _buildCastHorizontalListView(casts);
           } else if (snapshot.hasError) {
@@ -147,7 +147,7 @@ class __CastFutureBuilderState extends State<_CastFutureBuilder> {
     );
   }
 
-  ListView _buildCastHorizontalListView(List<Cast> casts) {
+  ListView _buildCastHorizontalListView(List<CastEntity> casts) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       padding: EdgeInsets.symmetric(horizontal: 15),
@@ -181,7 +181,7 @@ class _CastName extends StatelessWidget {
     @required this.index,
   }) : super(key: key);
 
-  final List<Cast> casts;
+  final List<CastEntity> casts;
   final int index;
 
   @override
@@ -207,7 +207,7 @@ class _CastImage extends StatelessWidget {
     @required this.index,
   }) : super(key: key);
 
-  final List<Cast> casts;
+  final List<CastEntity> casts;
   final int index;
 
   @override
@@ -244,7 +244,7 @@ class _WatchTrailerButton extends StatelessWidget {
     this.movie,
   }) : super(key: key);
 
-  final MovieViewModel movie;
+  final MovieEntity movie;
 
   @override
   Widget build(BuildContext context) {
@@ -283,7 +283,7 @@ class _MovieSynopsis extends StatelessWidget {
     this.movie,
   }) : super(key: key);
 
-  final MovieViewModel movie;
+  final MovieEntity movie;
 
   @override
   Widget build(BuildContext context) {
@@ -321,7 +321,7 @@ class _MovieDetailShortDescription extends StatelessWidget {
     this.movie,
   }) : super(key: key);
 
-  final MovieViewModel movie;
+  final MovieEntity movie;
 
   @override
   Widget build(BuildContext context) {
@@ -355,7 +355,7 @@ class _MovieDetailShortDescription extends StatelessWidget {
     );
   }
 
-  Row starRating(MovieViewModel movie) {
+  Row starRating(MovieEntity movie) {
     return Row(
       children: [
         RatingBarIndicator(
@@ -387,7 +387,7 @@ class _MovieGenre extends StatelessWidget {
     this.movie,
   }) : super(key: key);
 
-  final MovieViewModel movie;
+  final MovieEntity movie;
 
   @override
   Widget build(BuildContext context) {

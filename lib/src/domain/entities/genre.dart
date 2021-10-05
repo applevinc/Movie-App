@@ -1,16 +1,9 @@
-class Genre {
+class GenreEntity {
   final int id;
   final String name;
 
-  Genre({
+  GenreEntity({
     this.name,
     this.id,
   });
-
-  factory Genre.fromJson(Map<String, dynamic> json) {
-    return Genre(
-      id: json['id'],
-      name: json['name'],
-    );
-  }
 }

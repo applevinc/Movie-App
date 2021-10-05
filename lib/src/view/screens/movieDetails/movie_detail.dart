@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/src/domain/entities/movie.dart';
 import 'package:movie_app/src/view/screens/movieDetails/layouts/movie_detail_body.dart';
 import 'package:movie_app/src/view/widgets/back_app_bar.dart';
-import 'package:movie_app/src/viewModels/casts_view_model.dart';
-
-import 'package:movie_app/src/viewModels/movie_view_model.dart';
+import 'package:movie_app/src/view/screens/movieDetails/casts_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class MovieDetails extends StatelessWidget {
   const MovieDetails({Key key, this.movie}) : super(key: key);
 
-  final MovieViewModel movie;
+  final MovieEntity movie;
 
   @override
   Widget build(BuildContext context) {
-    var casts = Provider.of<CastsViewModel>(context).casts;
+    var casts = Provider.of<CastController>(context).casts;
 
     return Scaffold(
       extendBodyBehindAppBar: true,

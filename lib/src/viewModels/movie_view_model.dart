@@ -1,12 +1,12 @@
 import 'package:movie_app/src/domain/entities/genre.dart';
 import 'package:movie_app/src/domain/entities/movie.dart';
 
-List<Genre> tmbdGenreList = [];
+List<GenreEntity> tmbdGenreList = [];
 
 class MovieViewModel {
-  Movie _movie;
+  MovieEntity _movie;
 
-  MovieViewModel({Movie movie}) {
+  MovieViewModel({MovieEntity movie}) {
     this._movie = movie;
   }
 

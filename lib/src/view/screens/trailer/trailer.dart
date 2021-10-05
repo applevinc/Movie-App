@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/src/core/constants.dart';
 import 'package:movie_app/src/core/style/color.dart';
-import 'package:movie_app/src/domain/entities/video.dart';
+import 'package:movie_app/src/domain/entities/movie.dart';
+import 'package:movie_app/src/domain/entities/trailer.dart';
 import 'package:movie_app/src/view/widgets/back_app_bar.dart';
-import 'package:movie_app/src/viewModels/movie_view_model.dart';
-import 'package:movie_app/src/viewModels/video_view_model.dart';
+import 'package:movie_app/src/view/screens/trailer/movie_trailer_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class TrailerPage extends StatefulWidget {
   const TrailerPage({Key key, this.movie}) : super(key: key);
-  final MovieViewModel movie;
+  final MovieEntity movie;
 
   @override
   _TrailerPageState createState() => _TrailerPageState();
@@ -22,7 +22,7 @@ class _TrailerPageState extends State<TrailerPage> {
   @override
   void initState() {
     super.initState();
-    _getMovieTrailerList = Provider.of<VideoViewModel>(this.context, listen: false).getTrailers(widget.movie.id);
+    _getMovieTrailerList = Provider.of<MovieTrailerController>(this.context, listen: false).getTrailers(widget.movie.id);
   }
 
   @override
@@ -30,11 +30,11 @@ class _TrailerPageState extends State<TrailerPage> {
     return Scaffold(
       appBar: _buildCustomAppBar(context),
       body: Center(
-        child: FutureBuilder<List<Video>>(
+        child: FutureBuilder<List<TrailerEntity>>(
           future: _getMovieTrailerList,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              var videoId = Provider.of<VideoViewModel>(context).getYouTubeId(widget.movie.id);
+              var videoId = Provider.of<MovieTrailerController>(context).getYouTubeId(widget.movie.id);
 
               YoutubePlayerController _playerController = YoutubePlayerController(
                 //initalVideoId cannot be null

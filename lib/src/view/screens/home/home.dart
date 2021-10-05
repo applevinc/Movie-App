@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/src/core/style/color.dart';
+import 'package:movie_app/src/locator.dart';
 import 'package:movie_app/src/view/screens/home/tabs/popular_movies.dart';
 import 'package:movie_app/src/view/screens/home/tabs/upcoming_movies.dart';
+import 'package:movie_app/src/view/screens/search/movie_search_results_controller.dart';
 import 'package:movie_app/src/view/screens/search/search.dart';
 import 'package:movie_app/src/view/widgets/seach_appbar.dart';
 
@@ -36,7 +38,7 @@ class HomePage extends StatelessWidget {
         onPressed: () {
           showSearch(
             context: context,
-            delegate: MovieSearch(),
+            delegate: MovieSearch(backend<MovieSearchResultsController>()),
           );
         },
         bottom: TabBar(

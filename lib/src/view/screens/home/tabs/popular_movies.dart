@@ -3,7 +3,7 @@ import 'package:movie_app/src/core/style/color.dart';
 import 'package:movie_app/src/domain/entities/movie.dart';
 import 'package:movie_app/src/view/widgets/error_body.dart';
 import 'package:movie_app/src/view/widgets/movie_container.dart';
-import 'package:movie_app/src/viewModels/popular_movies_view_model.dart';
+import 'package:movie_app/src/view/screens/home/controllers/popular_movies_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -19,11 +19,11 @@ class _BuildPopularMoviesState extends State<BuildPopularMovies> {
   @override
   void initState() {
     super.initState();
-    _buildMovies = context.read<PopularMoviesViewModel>().getPopularMovies();
+    _buildMovies = context.read<GetPopularMoviesController>().getPopularMovies();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         //if we are at the bottom of the page
-        context.read<PopularMoviesViewModel>().getPopularMovies();
+        context.read<GetPopularMoviesController>().getPopularMovies();
       }
     });
   }
@@ -36,7 +36,7 @@ class _BuildPopularMoviesState extends State<BuildPopularMovies> {
 
   @override
   Widget build(BuildContext context) {
-    var movies = Provider.of<PopularMoviesViewModel>(context);
+    var movies = Provider.of<GetPopularMoviesController>(context);
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -50,7 +50,7 @@ class _BuildPopularMoviesState extends State<BuildPopularMovies> {
 
         movies.getPopularMovies();
       },
-      child: FutureBuilder<List<Movie>>(
+      child: FutureBuilder<List<MovieEntity>>(
         future: _buildMovies,
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
@@ -68,7 +68,7 @@ class _BuildPopularMoviesState extends State<BuildPopularMovies> {
               message: snapshot.error,
               refresh: () {
                 setState(() {
-                  _buildMovies = context.read<PopularMoviesViewModel>().getPopularMovies();
+                  _buildMovies = context.read<GetPopularMoviesController>().getPopularMovies();
                 });
               },
             );
@@ -92,7 +92,7 @@ class _BuildPopularMoviesListView extends StatelessWidget {
     this.scrollController,
   }) : super(key: key);
 
-  final PopularMoviesViewModel moviesProvider;
+  final GetPopularMoviesController moviesProvider;
   final ScrollController scrollController;
 
   @override
@@ -125,7 +125,7 @@ class _BuildPopularMoviesGridView extends StatelessWidget {
     this.scrollController,
   }) : super(key: key);
 
-  final PopularMoviesViewModel moviesProvider;
+  final GetPopularMoviesController moviesProvider;
   final ScrollController scrollController;
 
   @override
