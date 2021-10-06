@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:movie_app/src/core/constants.dart';
+import 'package:movie_app/src/data_source/exceptions/fetch.dart';
 import 'package:movie_app/src/data_source/models/cast_model.dart';
 import 'package:movie_app/src/data_source/models/genre_model.dart';
 import 'package:movie_app/src/data_source/models/movie_model.dart';
 import 'package:movie_app/src/data_source/models/trailer_model.dart';
-import 'package:movie_app/src/services/exceptions/fetch.dart';
 import 'package:dio/dio.dart';
-import 'package:movie_app/src/viewModels/movie_view_model.dart';
 
 abstract class IMovieRemoteDataSource {
   Future<List<MovieModel>> fetchPopularMovies(int pageNo);
@@ -14,6 +13,7 @@ abstract class IMovieRemoteDataSource {
   Future<List<CastModel>> fetchMovieCast(int movieId);
   Future<List<TrailerModel>> fetchMovieTrailer(int movieId);
   Future<List<MovieModel>> fetchMovieSearchResults(String query);
+  Future<List<GenreModel>> fetchTmbdGenreList();
 }
 
 class MovieRemoteDataSourceImpl implements IMovieRemoteDataSource {
@@ -83,7 +83,7 @@ class MovieRemoteDataSourceImpl implements IMovieRemoteDataSource {
     }
   }
 
-  void fetchGenreList() async {
+  Future<List<GenreModel>> fetchTmbdGenreList() async {
     const String _url =
         'https://api.themoviedb.org/3/genre/movie/list?api_key=$apiKey&language=en-US';
 
@@ -91,8 +91,8 @@ class MovieRemoteDataSourceImpl implements IMovieRemoteDataSource {
       final response = await dio.get(_url);
       final data = response.data['genres'];
       final results = List<Map<String, dynamic>>.from(data);
-      tmbdGenreList =
-          results.map((genre) => GenreModel.fromJson(genre)).toList(growable: false);
+
+      return results.map((genre) => GenreModel.fromJson(genre)).toList(growable: false);
     } on DioError catch (dioError) {
       throw MoviesException.fromDioError(dioError);
     }

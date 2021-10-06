@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:movie_app/src/data_source/sources/remote_data_source.dart';
+import 'package:movie_app/src/domain/entities/genre.dart';
 import 'package:movie_app/src/domain/entities/trailer.dart';
 import 'package:movie_app/src/domain/entities/movie.dart';
 import 'package:movie_app/src/domain/entities/cast.dart';
@@ -50,6 +51,15 @@ class MovieRepositoryImpl implements IMovieRepository {
   Future<List<MovieEntity>> fetchUpcomingMovies(int pageNo) async {
     try {
       return await remoteDataSource.fetchUpcomingMovies(pageNo);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<GenreEntity>> fetchTMBDGenreList() async {
+    try {
+      return await remoteDataSource.fetchTmbdGenreList();
     } catch (e) {
       rethrow;
     }

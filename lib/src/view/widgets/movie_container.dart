@@ -141,7 +141,7 @@ class MovieGenre extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      (movie.genre != null) ? 'Genre: ${movie.genre}' : 'null',
+      (movie.genres != null) ? 'Genre: ${movie.genres}' : 'null',
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
       style: GoogleFonts.montserrat(

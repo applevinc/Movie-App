@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/src/core/style/color.dart';
 import 'package:movie_app/src/locator.dart';
+import 'package:movie_app/src/view/screens/home/controllers/tmbd_genre_list_controller.dart';
 import 'package:movie_app/src/view/screens/home/home.dart';
 import 'package:movie_app/src/view/screens/movieDetails/casts_controller.dart';
 import 'package:movie_app/src/view/screens/home/controllers/popular_movies_controller.dart';
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => backend<MovieTrailerController>(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => backend<GenreListController>(),
         ),
       ],
       child: LayoutBuilder(

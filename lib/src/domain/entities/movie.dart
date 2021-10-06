@@ -4,7 +4,7 @@ class MovieEntity {
   final String poster;
   final String description;
   final String releaseDate;
-  final List<int> genre;
+  final String genres;
   final double rating;
 
   MovieEntity({
@@ -13,7 +13,7 @@ class MovieEntity {
     this.poster,
     this.description,
     this.releaseDate,
-    this.genre,
+    this.genres,
     this.rating,
   });
 }

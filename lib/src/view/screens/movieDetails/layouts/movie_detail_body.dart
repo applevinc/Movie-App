@@ -392,7 +392,7 @@ class _MovieGenre extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Genre: ${movie.genre}',
+      'Genre: ${movie.genres}',
       style: GoogleFonts.montserrat(
         color: Color(0xff8D8E96),
         fontSize: 13,

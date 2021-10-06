@@ -16,3 +16,19 @@ class GenreModel extends GenreEntity {
     );
   }
 }
+
+List<GenreEntity> genreList = [];
+
+String generateGenre(dynamic genreIds) {
+  List<String> movieGenreList = [];
+
+  for (int id in genreIds) {
+    for (var genreItem in genreList) {
+      if (id == genreItem.id) {
+        movieGenreList.add(genreItem.name);
+      }
+    }
+  }
+
+  return movieGenreList.join(', ');
+}
