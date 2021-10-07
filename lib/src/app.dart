@@ -39,8 +39,14 @@ class MyApp extends StatelessWidget {
               title: 'Photoplay',
               theme: ThemeData.dark().copyWith(
                 scaffoldBackgroundColor: AppColor.black,
-                colorScheme:
-                    ColorScheme.fromSwatch().copyWith(secondary: AppColor.yellow),
+                primaryColor: AppColor.yellow,
+                colorScheme: ColorScheme.fromSwatch().copyWith(
+                  secondary: AppColor.yellow,
+                ),
+                appBarTheme: AppBarTheme(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0.0,
+                ),
               ),
               debugShowCheckedModeBanner: false,
               home: HomePage(),

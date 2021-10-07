@@ -30,19 +30,19 @@ class _BuildUpcomingMoviesState extends State<BuildUpcomingMovies> {
 
   @override
   Widget build(BuildContext context) {
-    var movies = Provider.of<GetUpcomingMoviesController>(context);
+    var moviesController = context.watch<GetUpcomingMoviesController>();
 
     return RefreshIndicator(
       onRefresh: () async {
-        await Future.delayed(Duration(seconds: 1));
+        //await Future.delayed(Duration(seconds: 1));
 
         // Turn isRefreshing to true so as to
         // return a new list of movies
         setState(() {
-          movies.isRefreshing = true;
+          moviesController.isRefreshing = true;
         });
 
-        movies.getUpcomingMovies();
+        moviesController.getUpcomingMovies();
       },
       child: FutureBuilder<List<MovieEntity>>(
         future: _buildMovies,
@@ -51,10 +51,10 @@ class _BuildUpcomingMoviesState extends State<BuildUpcomingMovies> {
             return SizerUtil.orientation == Orientation.portrait
                 ? _BuildUpComingMoviesListView(
                     scrollController: _scrollController,
-                    moviesProvider: movies,
+                    moviesProvider: moviesController,
                   )
                 : _BuildUpComingMoviesGridView(
-                    moviesProvider: movies,
+                    moviesProvider: moviesController,
                     scrollController: _scrollController,
                   );
           } else if (snapshot.hasError) {
@@ -62,9 +62,7 @@ class _BuildUpcomingMoviesState extends State<BuildUpcomingMovies> {
               message: snapshot.error,
               refresh: () {
                 setState(() {
-                  _buildMovies = _buildMovies = context
-                      .read<GetUpcomingMoviesController>()
-                      .getUpcomingMovies();
+                  moviesController.getUpcomingMovies();
                 });
               },
             );

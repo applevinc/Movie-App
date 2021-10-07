@@ -19,11 +19,14 @@ class _BuildPopularMoviesState extends State<BuildPopularMovies> {
   @override
   void initState() {
     super.initState();
-    _buildMovies = context.read<GetPopularMoviesController>().getPopularMovies();
+    var movieController = context.read<GetPopularMoviesController>();
+    _buildMovies = movieController.getPopularMovies();
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
         //if we are at the bottom of the page
-        context.read<GetPopularMoviesController>().getPopularMovies();
+        movieController.refreshStatus = RefreshStatus.static;
+        movieController.getPopularMovies();
       }
     });
   }
@@ -36,40 +39,33 @@ class _BuildPopularMoviesState extends State<BuildPopularMovies> {
 
   @override
   Widget build(BuildContext context) {
-    var movies = Provider.of<GetPopularMoviesController>(context);
+    var movieController = context.watch<GetPopularMoviesController>();
 
     return RefreshIndicator(
+      color: AppColor.yellow,
       onRefresh: () async {
-        await Future.delayed(Duration(seconds: 1));
-
-        // Turn isRefreshing to true so as to
-        // return a new list of movies
-        setState(() {
-          movies.isRefreshing = true;
-        });
-
-        movies.getPopularMovies();
+        movieController.refreshStatus = RefreshStatus.refreshing;
+        await movieController.getPopularMovies();
       },
       child: FutureBuilder<List<MovieEntity>>(
         future: _buildMovies,
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        builder: (context, snapshot) {
           if (snapshot.hasData) {
             return SizerUtil.orientation == Orientation.portrait
                 ? _BuildPopularMoviesListView(
                     scrollController: _scrollController,
-                    moviesProvider: movies,
+                    moviesProvider: movieController,
                   )
                 : _BuildPopularMoviesGridView(
-                    moviesProvider: movies,
+                    moviesProvider: movieController,
                     scrollController: _scrollController,
                   );
           } else if (snapshot.hasError) {
             return ErrorBody(
               message: snapshot.error,
               refresh: () {
-                setState(() {
-                  _buildMovies = context.read<GetPopularMoviesController>().getPopularMovies();
-                });
+                movieController.refreshStatus = RefreshStatus.static;
+                _buildMovies = movieController.getPopularMovies();
               },
             );
           }

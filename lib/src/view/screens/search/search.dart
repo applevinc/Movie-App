@@ -11,13 +11,10 @@ class MovieSearch extends SearchDelegate {
 
   @override
   ThemeData appBarTheme(BuildContext context) {
-    assert(context != null);
-    final ThemeData theme = Theme.of(context);
-    assert(theme != null);
-    return theme.copyWith(
-      primaryColor: Colors.black,
-      primaryColorBrightness: Brightness.dark,
-    );
+    // assert(context != null);
+    // final ThemeData theme = Theme.of(context);
+    // assert(theme != null);
+    return Theme.of(context);
   }
 
   @override

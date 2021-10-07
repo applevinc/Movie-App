@@ -4,40 +4,50 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/src/domain/entities/movie.dart';
 import 'package:movie_app/src/domain/usecases/fetch_popular_movies_usecase.dart';
 
+enum RefreshStatus {
+  refreshing,
+  /// for [RefreshIndicator] widget is not active.
+  static,
+}
+
 class GetPopularMoviesController extends ChangeNotifier {
   final GetPopularMoviesUsecase getPopularMoviesUsecase;
   GetPopularMoviesController(this.getPopularMoviesUsecase);
 
-  bool isRefreshing = false;
+  RefreshStatus refreshStatus = RefreshStatus.static;
 
-  List<MovieEntity> _movies;
+  List<MovieEntity> _movies = [];
   List<MovieEntity> get movies => _movies;
 
   Future<List<MovieEntity>> getPopularMovies() async {
+    int rand = _generateRandomInt();
+
+    if (_movies.isNotEmpty && refreshStatus == RefreshStatus.static) {
+      List<MovieEntity> fetchedMovies = await getPopularMoviesUsecase.call(rand);
+      _movies = _movies + fetchedMovies;
+      notifyListeners();
+    } else if (refreshStatus == RefreshStatus.refreshing) {
+      _movies = await getPopularMoviesUsecase.call(rand);
+      notifyListeners();
+    } else {
+      _movies = await getPopularMoviesUsecase.call(rand);
+      notifyListeners();
+    }
+
+    return _movies;
+  }
+
+  void isRefreshing() {
+    refreshStatus = RefreshStatus.refreshing;
+    notifyListeners();
+  }
+
+  int _generateRandomInt() {
     Random random = Random();
     int rand = random.nextInt(501);
     if (rand == 0) {
       rand = 1;
     }
-
-    _movies = await getPopularMoviesUsecase.call(rand);
-
-    // List<MovieEntity> fetchedMoviesList = await getPopularMoviesUsecase.call(rand);
-
-    // if (isRefreshing == true) {
-    //   _movies = fetchedMoviesList.map((movie) => MovieViewModel(movie: movie)).toList();
-
-    //   // To toggle back isRefreshing state to initial so as
-    //   // not to always run this if statement block
-    //   isRefreshing = false;
-
-    //   notifyListeners();
-    // }
-
-    // _movies
-    //     .addAll(fetchedMoviesList.map((movie) => MovieViewModel(movie: movie)).toList());
-
-    notifyListeners();
-    return _movies;
+    return rand;
   }
 }

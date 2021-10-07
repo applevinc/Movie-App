@@ -10,7 +10,7 @@ class GetUpcomingMoviesController extends ChangeNotifier {
 
   bool isRefreshing = false;
 
-  List<MovieEntity> _movies;
+  List<MovieEntity> _movies = [];
   List<MovieEntity> get movies => _movies;
 
   Future<List<MovieEntity>> getUpcomingMovies() async {
@@ -20,22 +20,15 @@ class GetUpcomingMoviesController extends ChangeNotifier {
       rand = 1;
     }
 
-    _movies = await upComingMoviesUsecase.call(rand);
+    if (_movies.isNotEmpty) {
+      List<MovieEntity> fetchedMovies = await upComingMoviesUsecase.call(rand);
+      _movies = _movies + fetchedMovies;
 
-    // List<MovieEntity> fetchedMoviesList = await upComingMoviesUsecase.call(rand);
-
-    // if (isRefreshing == true) {
-    //   _movies = fetchedMoviesList.map((movie) => MovieViewModel(movie: movie)).toList();
-
-    //   // To toggle back isRefreshing state to initial so as
-    //   // not to always run this if statement block
-    //   isRefreshing = false;
-
-    //   notifyListeners();
-    // }
-
-    // _movies
-    //     .addAll(fetchedMoviesList.map((movie) => MovieViewModel(movie: movie)).toList());
+      notifyListeners();
+    } else {
+      _movies = await upComingMoviesUsecase.call(rand);
+      notifyListeners();
+    }
 
     notifyListeners();
     return _movies;

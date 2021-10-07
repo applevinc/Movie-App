@@ -29,7 +29,28 @@ class _HomePageState extends State<HomePage> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: _buildHomeSearchAppBar(context),
+        appBar: HomeSearchAppBar(
+          title: 'MOVIES',
+          height: 15.0.h,
+          onPressed: () {
+            showSearch(
+              context: context,
+              delegate: MovieSearch(backend<MovieSearchResultsController>()),
+            );
+          },
+          bottom: TabBar(
+            indicatorColor: AppColor.yellow,
+            tabs: [
+              Tab(text: 'Now Popular'),
+              Tab(text: 'Upcoming'),
+            ],
+            labelStyle: GoogleFonts.montserrat(
+              color: Color(0xffC1C1C6),
+              fontSize: 13.0.sp,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
         body: Padding(
           padding: const EdgeInsets.only(top: 10),
           child: TabBarView(
@@ -37,33 +58,6 @@ class _HomePageState extends State<HomePage> {
               BuildPopularMovies(),
               BuildUpcomingMovies(),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  PreferredSize _buildHomeSearchAppBar(BuildContext context) {
-    return PreferredSize(
-      preferredSize: Size.fromHeight(15.0.h),
-      child: HomeSearchAppBar(
-        title: 'MOVIES',
-        onPressed: () {
-          showSearch(
-            context: context,
-            delegate: MovieSearch(backend<MovieSearchResultsController>()),
-          );
-        },
-        bottom: TabBar(
-          indicatorColor: AppColor.yellow,
-          tabs: [
-            Tab(text: 'Now Popular'),
-            Tab(text: 'Upcoming'),
-          ],
-          labelStyle: GoogleFonts.montserrat(
-            color: Color(0xffC1C1C6),
-            fontSize: 13.0.sp,
-            fontWeight: FontWeight.bold,
           ),
         ),
       ),
