@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/src/core/style/color.dart';
 import 'package:movie_app/src/domain/entities/movie.dart';
+import 'package:movie_app/src/view/screens/home/controllers/helpers.dart';
 import 'package:movie_app/src/view/widgets/error_body.dart';
 import 'package:movie_app/src/view/widgets/movie_container.dart';
 import 'package:movie_app/src/view/screens/home/controllers/upcoming_movies_controller.dart';
@@ -16,54 +17,50 @@ class _BuildUpcomingMoviesState extends State<BuildUpcomingMovies> {
   var _buildMovies;
   ScrollController _scrollController = ScrollController();
 
+  @override
   void initState() {
     super.initState();
-    _buildMovies = context.read<GetUpcomingMoviesController>().getUpcomingMovies();
+    var movieController = context.read<GetUpcomingMoviesController>();
+    _buildMovies = movieController.getMovies();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        //if we are at the bottom of the page
-        context.read<GetUpcomingMoviesController>().getUpcomingMovies();
+        //when we are at the bottom of the page
+        movieController.refreshStatus = RefreshStatus.static;
+        movieController.getMovies();
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    var moviesController = context.watch<GetUpcomingMoviesController>();
+    var movieController = context.watch<GetUpcomingMoviesController>();
 
     return RefreshIndicator(
+      color: AppColor.yellow,
       onRefresh: () async {
-        //await Future.delayed(Duration(seconds: 1));
-
-        // Turn isRefreshing to true so as to
-        // return a new list of movies
-        setState(() {
-          moviesController.isRefreshing = true;
-        });
-
-        moviesController.getUpcomingMovies();
+        movieController.refreshStatus = RefreshStatus.refreshing;
+        await movieController.getMovies();
       },
       child: FutureBuilder<List<MovieEntity>>(
         future: _buildMovies,
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        builder: (context, snapshot) {
           if (snapshot.hasData) {
             return SizerUtil.orientation == Orientation.portrait
                 ? _BuildUpComingMoviesListView(
                     scrollController: _scrollController,
-                    moviesProvider: moviesController,
+                    moviesProvider: movieController,
                   )
                 : _BuildUpComingMoviesGridView(
-                    moviesProvider: moviesController,
+                    moviesProvider: movieController,
                     scrollController: _scrollController,
                   );
           } else if (snapshot.hasError) {
             return ErrorBody(
               message: snapshot.error,
               refresh: () {
-                setState(() {
-                  moviesController.getUpcomingMovies();
-                });
+                movieController.refreshStatus = RefreshStatus.static;
+                _buildMovies = movieController.getMovies();
               },
             );
           }

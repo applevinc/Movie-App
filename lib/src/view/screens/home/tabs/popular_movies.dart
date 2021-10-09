@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/src/core/style/color.dart';
 import 'package:movie_app/src/domain/entities/movie.dart';
+import 'package:movie_app/src/view/screens/home/controllers/helpers.dart';
 import 'package:movie_app/src/view/widgets/error_body.dart';
 import 'package:movie_app/src/view/widgets/movie_container.dart';
 import 'package:movie_app/src/view/screens/home/controllers/popular_movies_controller.dart';
@@ -8,6 +9,10 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class BuildPopularMovies extends StatefulWidget {
+  const BuildPopularMovies({
+    Key key,
+  }) : super(key: key);
+
   @override
   _BuildPopularMoviesState createState() => _BuildPopularMoviesState();
 }
@@ -20,13 +25,13 @@ class _BuildPopularMoviesState extends State<BuildPopularMovies> {
   void initState() {
     super.initState();
     var movieController = context.read<GetPopularMoviesController>();
-    _buildMovies = movieController.getPopularMovies();
+    _buildMovies = movieController.getMovies();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        //if we are at the bottom of the page
+        //when we are at the bottom of the page
         movieController.refreshStatus = RefreshStatus.static;
-        movieController.getPopularMovies();
+        movieController.getMovies();
       }
     });
   }
@@ -45,7 +50,7 @@ class _BuildPopularMoviesState extends State<BuildPopularMovies> {
       color: AppColor.yellow,
       onRefresh: () async {
         movieController.refreshStatus = RefreshStatus.refreshing;
-        await movieController.getPopularMovies();
+        await movieController.getMovies();
       },
       child: FutureBuilder<List<MovieEntity>>(
         future: _buildMovies,
@@ -65,7 +70,7 @@ class _BuildPopularMoviesState extends State<BuildPopularMovies> {
               message: snapshot.error,
               refresh: () {
                 movieController.refreshStatus = RefreshStatus.static;
-                _buildMovies = movieController.getPopularMovies();
+                _buildMovies = movieController.getMovies();
               },
             );
           }

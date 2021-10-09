@@ -1,14 +1,9 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:movie_app/src/domain/entities/movie.dart';
 import 'package:movie_app/src/domain/usecases/fetch_popular_movies_usecase.dart';
-
-enum RefreshStatus {
-  refreshing,
-  /// for [RefreshIndicator] widget is not active.
-  static,
-}
+import 'package:movie_app/src/view/screens/home/controllers/helpers.dart';
 
 class GetPopularMoviesController extends ChangeNotifier {
   final GetPopularMoviesUsecase getPopularMoviesUsecase;
@@ -19,8 +14,8 @@ class GetPopularMoviesController extends ChangeNotifier {
   List<MovieEntity> _movies = [];
   List<MovieEntity> get movies => _movies;
 
-  Future<List<MovieEntity>> getPopularMovies() async {
-    int rand = _generateRandomInt();
+  Future<List<MovieEntity>> getMovies() async {
+    int rand = generateRandomInt();
 
     if (_movies.isNotEmpty && refreshStatus == RefreshStatus.static) {
       List<MovieEntity> fetchedMovies = await getPopularMoviesUsecase.call(rand);
@@ -37,12 +32,12 @@ class GetPopularMoviesController extends ChangeNotifier {
     return _movies;
   }
 
-  void isRefreshing() {
+   void isRefreshing() {
     refreshStatus = RefreshStatus.refreshing;
     notifyListeners();
   }
 
-  int _generateRandomInt() {
+  int generateRandomInt() {
     Random random = Random();
     int rand = random.nextInt(501);
     if (rand == 0) {
